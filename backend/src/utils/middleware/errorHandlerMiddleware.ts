@@ -15,9 +15,7 @@ const errorHandler = (
       status = (err as { message: string; status: number }).status;
     }
   }
-
-  console.log(err);
-  res.status(status).json(message);
+  res.status(status).json({ error: message });
 };
 
 export default errorHandler;
