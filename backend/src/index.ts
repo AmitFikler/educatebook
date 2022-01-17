@@ -15,9 +15,9 @@ if (MONGO_URI && PORT) {
   mongoose
     .connect(MONGO_URI) // connect to mongodb
     .then(() => {
-      console.log(`connected to MongoDB - ${config.mongodb_url}`);
-      app.listen(config.port, () =>
-        console.log(`app listening at http://localhost:${config.port}`)
+      console.log(`connected to MongoDB - ${MONGO_URI}`);
+      app.listen(PORT, () =>
+        console.log(`app listening at http://localhost:${PORT}`)
       );
     })
     .catch((error) => {
@@ -31,5 +31,3 @@ app.use(express.json()); //json middleware
 app.use('/api', apiRouter);
 
 app.use(errorHandler); //error handler middleware
-
-// start server
