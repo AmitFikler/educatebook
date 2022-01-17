@@ -1,12 +1,17 @@
 import express from 'express';
 import cors from 'cors';
-import errorHandler from './utils/middleware/errorHandlerMiddleware';
 
+import errorHandler from './utils/middleware/errorHandlerMiddleware';
 import config from './utils/config';
 
+import apiRouter from './routers/api';
+
 const app = express();
-app.use(express.json()); //json middleware
+
 app.use(cors()); //cors middleware
+app.use(express.json()); //json middleware
+
+app.use('/api', apiRouter);
 
 app.use(errorHandler); //error handler middleware
 
