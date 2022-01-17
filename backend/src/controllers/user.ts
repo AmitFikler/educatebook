@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../models/User';
+import bcryptService from '../services/bcryptService';
 
 const getAllUsers = async (
   _req: Request,
@@ -13,4 +14,18 @@ const getAllUsers = async (
     next(res.sendStatus(400).send(error));
   }
 };
-export { getAllUsers };
+const addNewUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { username, password, role } = req.body;
+    const hashPassword = await bcryptService.hashPassword(password.toString()); // hash password
+    await User.create({
+      username,
+      password: hashPassword,
+      role,
+    });
+    res.send('user created!');
+  } catch (error) {
+    next(res.sendStatus(400).send(error));
+  }
+};
+export { getAllUsers, addNewUser };
