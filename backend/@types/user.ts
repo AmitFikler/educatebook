@@ -1,5 +1,6 @@
 export interface User {
   username: string;
   password: string;
-  role: 'tutor' | 'student';
+  role: Role;
 }
+export type Role = 'tutor' | 'student';

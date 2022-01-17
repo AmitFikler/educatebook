@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import isEmail from 'validator/lib/isEmail';
 import { User } from '../../@types/user';
 
 const UserSchema = new mongoose.Schema<User>(
@@ -7,6 +8,9 @@ const UserSchema = new mongoose.Schema<User>(
       type: String,
       required: true,
       unique: true,
+      validate: {
+        validator: (e: string) => isEmail(e),
+      },
     },
     password: {
       type: String,
@@ -15,6 +19,7 @@ const UserSchema = new mongoose.Schema<User>(
     role: {
       type: String,
       required: true,
+      enum: ['tutor', 'student'],
     },
   },
   { timestamps: true }
