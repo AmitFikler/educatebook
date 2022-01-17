@@ -11,7 +11,7 @@ const getAllUsers = async (
     const users = await User.find({});
     res.json(users);
   } catch (error) {
-    next(res.sendStatus(400).send(error));
+    next(error);
   }
 };
 const addNewUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -25,7 +25,7 @@ const addNewUser = async (req: Request, res: Response, next: NextFunction) => {
     });
     res.send('user created!');
   } catch (error) {
-    next(res.sendStatus(400).send(error));
+    next(error);
   }
 };
 export { getAllUsers, addNewUser };
