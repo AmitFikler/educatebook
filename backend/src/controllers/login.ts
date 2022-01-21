@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { User } from '../models/User';
-import bcryptService from '../services/bcryptService';
+import bcryptService from '../utils/helpers/bcryptService';
+import { tokenSign } from '../utils/helpers/jwtService';
 
 const handleLogin = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -12,7 +13,12 @@ const handleLogin = async (req: Request, res: Response, next: NextFunction) => {
         user.password
       );
       if (currentPassword) {
-        res.send('login successfully!');
+        const userForToken = {
+          username,
+          id: user._id,
+        };
+        const token = tokenSign(userForToken);
+        res.json({ token, username });
       } else {
         throw { status: 403, message: 'wrong password' };
       }

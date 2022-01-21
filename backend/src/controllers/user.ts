@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../models/User';
-import bcryptService from '../services/bcryptService';
+import bcryptService from '../utils/helpers/bcryptService';
 
 const getAllUsers = async (
   _req: Request,

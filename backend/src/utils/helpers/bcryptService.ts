@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import config from '../utils/config';
+import config from '../config';
 
 const SALT: number = Number(config.salt_rounds);
 
