@@ -8,9 +8,13 @@ const PostSchema = new mongoose.Schema<Post>(
       type: String,
       required: true,
     },
-    contact: {
+    content: {
       type: String,
       required: true,
+    },
+    likes: {
+      type: Number,
+      default: 0,
     },
     comments: [{ type: 'ObjectId', ref: 'Comment' }],
   },
