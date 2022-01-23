@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import e, { Request, Response, NextFunction } from 'express';
 import { Post } from '../models/Post';
 import { User } from '../models/User';
 
@@ -13,8 +13,8 @@ const postAPost = async (req: Request, res: Response, next: NextFunction) => {
         content,
       });
       const user = await User.findById(decodedToken!.id);
-      if (user?.posts) {
-        user.posts = user?.posts.concat(newPost._id);
+      if (user) {
+        user.posts = user.posts.concat(newPost._id);
         await user.save();
       }
       res.send(newPost);
@@ -26,4 +26,24 @@ const postAPost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { postAPost };
+const likeAPost = async (req: Request, res: Response, next: NextFunction) => {
+  const { postId } = req.body;
+  try {
+    if (postId) {
+      const post = await Post.findById(postId);
+      if (post) {
+        post.likes += 1;
+        await post.save();
+        res.send(`${postId} has ${post.likes} likes `);
+      } else {
+        throw { status: 404, message: 'Post not found' };
+      }
+    } else {
+      throw { status: 400, message: 'Post id is missing' };
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { postAPost, likeAPost };
