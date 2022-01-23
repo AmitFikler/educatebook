@@ -2,6 +2,6 @@ import { Types } from 'mongoose';
 
 export interface Comment {
   usernameId: Types.ObjectId;
-  contact: string;
+  content: string;
   commentOn: Types.ObjectId;
 }

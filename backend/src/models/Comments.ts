@@ -4,7 +4,7 @@ import { Comment } from '../../@types/comment';
 const CommentsSchema = new mongoose.Schema<Comment>(
   {
     usernameId: { type: 'ObjectId', ref: 'User' },
-    contact: { type: String, required: true },
+    content: { type: String, required: true },
     commentOn: { type: 'ObjectId', ref: 'Post' },
   },
   { timestamps: true }
