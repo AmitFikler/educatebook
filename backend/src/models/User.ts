@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema<User>(
       enum: ['tutor', 'student'],
     },
     posts: [{ type: 'ObjectId', ref: 'Post' }],
+    Comments: [{ type: 'ObjectId', ref: 'Comment' }],
   },
   { timestamps: true }
 );

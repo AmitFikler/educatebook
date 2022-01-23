@@ -5,5 +5,6 @@ export interface User {
   password: string;
   role: Role;
   posts: Types.ObjectId[];
+  comments: Types.ObjectId[];
 }
 export type Role = 'tutor' | 'student';
