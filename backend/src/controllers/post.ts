@@ -59,4 +59,32 @@ const getAllPosts = async (
   }
 };
 
-export { postAPost, likeAPost, getAllPosts };
+const deletePost = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const decodedToken = req.decodedToken;
+    const { id } = req.params;
+    if (id) {
+      const postToDelete = await Post.findById(id);
+      if (postToDelete?.usernameId == decodedToken!.id) {
+        await Post.findByIdAndDelete(id);
+        const user = await User.findById(decodedToken!.id);
+        if (user) {
+          user.posts = user.posts.filter((postId) => postId.toString() != id);
+          await user.save();
+        }
+        res.send(`${id} delete`);
+      } else {
+        throw {
+          status: 401,
+          message: 'You are not authorized to delete this post',
+        };
+      }
+    } else {
+      throw { status: 400, message: 'Id is missing' };
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { postAPost, likeAPost, getAllPosts, deletePost };
