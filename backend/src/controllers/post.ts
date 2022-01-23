@@ -1,4 +1,4 @@
-import e, { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { Post } from '../models/Post';
 import { User } from '../models/User';
 
@@ -46,4 +46,17 @@ const likeAPost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { postAPost, likeAPost };
+const getAllPosts = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const posts = await Post.find({});
+    res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { postAPost, likeAPost, getAllPosts };
