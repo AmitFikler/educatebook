@@ -2,19 +2,21 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build-ts": "tsc",
-    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^27.4.0",
     "jest": "^27.4.7",
     "nodemon": "^2.0.15",
     "supertest": "^6.2.2",
+    "ts-jest": "^27.1.3",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   },
@@ -23,6 +25,7 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.8",
+    "@types/supertest": "^2.0.11",
     "@types/validator": "^13.7.1",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
@@ -32,8 +35,5 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.6",
     "validator": "^13.7.0"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }

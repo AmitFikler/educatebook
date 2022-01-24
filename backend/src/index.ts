@@ -13,7 +13,7 @@ const MONGO_URI =
     : config.mongodb_url;
 const PORT = config.port;
 
-const app = express();
+export const app = express();
 if (MONGO_URI && PORT) {
   mongoose
     .connect(MONGO_URI) // connect to mongodb
