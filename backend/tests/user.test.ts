@@ -137,6 +137,43 @@ describe('POST TESTING:', () => {
         .expect(400);
     });
   });
+
+  describe('PUT /api/post/like', () => {
+    it('should like a post', async () => {
+      const postToLike = await Post.findOne();
+      expect(postToLike?.likes).toBe(0);
+      await api
+        .put('/api/post/like')
+        .send({
+          postId: postToLike?.id,
+        })
+        .expect(200);
+      const postAfterLike = await Post.findById(postToLike?.id);
+      expect(postAfterLike?.likes).toBe(1);
+    });
+    it('should throw if gets invalid id', async () => {
+      const postToLike = await Post.findOne();
+      expect(postToLike?.likes).toBe(1);
+      const reposnse = await api.put('/api/post/like').send({
+        postId: 'invalidId',
+      });
+      console.log(reposnse);
+      const postAfterLike = await Post.findById(postToLike?.id);
+      expect(postAfterLike?.likes).toBe(1);
+    });
+    it('should throw (400) if not gets id', async () => {
+      const postToLike = await Post.findOne();
+      expect(postToLike?.likes).toBe(1);
+      await api
+        .put('/api/post/like')
+        .send({
+          postId: '',
+        })
+        .expect(400);
+      const postAfterLike = await Post.findById(postToLike?.id);
+      expect(postAfterLike?.likes).toBe(1);
+    });
+  });
 });
 
 afterAll(() => {
