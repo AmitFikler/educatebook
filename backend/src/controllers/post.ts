@@ -6,18 +6,26 @@ const postAPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const decodedToken = req.decodedToken;
     const { title, content } = req.body;
+
     if (title && content) {
+      // create new post
       const newPost = await Post.create({
         usernameId: decodedToken!.id,
         title,
         content,
       });
-      const user = await User.findById(decodedToken!.id);
-      if (user) {
-        user.posts = user.posts.concat(newPost._id);
-        await user.save();
-      }
-      res.send(newPost);
+      await User.findByIdAndUpdate(
+        decodedToken!.id,
+        {
+          $addToSet: { posts: newPost }, // push post to array of posts
+        },
+        (err, updated) => {
+          if (err) {
+            throw { status: 404, message: 'User not found' };
+          }
+          return res.send(newPost); // succuss
+        }
+      ).clone();
     } else {
       throw { status: 400, message: 'title or content is missing..' };
     }
@@ -29,18 +37,13 @@ const postAPost = async (req: Request, res: Response, next: NextFunction) => {
 const likeAPost = async (req: Request, res: Response, next: NextFunction) => {
   const { postId } = req.body;
   try {
-    if (postId) {
-      const post = await Post.findById(postId);
-      if (post) {
-        post.likes += 1;
-        await post.save();
-        res.send(`${postId} has ${post.likes} likes `);
-      } else {
-        throw { status: 404, message: 'Post not found' };
-      }
-    } else {
-      throw { status: 400, message: 'Post id is missing' };
-    }
+    if (!postId) throw { status: 400, message: 'Post id is missing' };
+    const post = await Post.findByIdAndUpdate(
+      postId,
+      { $inc: { likes: 1 } } // increment likes by 1
+    );
+    if (!post) throw { status: 404, message: 'Post not found' };
+    res.send(`${postId} has ${post!.likes} likes `);
   } catch (error) {
     next(error);
   }
@@ -52,7 +55,7 @@ const getAllPosts = async (
   next: NextFunction
 ) => {
   try {
-    const posts = await Post.find({});
+    const posts = await Post.find({}); // find all posts
     res.json(posts);
   } catch (error) {
     next(error);
@@ -60,27 +63,27 @@ const getAllPosts = async (
 };
 
 const deletePost = async (req: Request, res: Response, next: NextFunction) => {
+  const decodedToken = req.decodedToken;
+  const { id } = req.params;
   try {
-    const decodedToken = req.decodedToken;
-    const { id } = req.params;
-    if (id) {
-      const postToDelete = await Post.findById(id);
-      if (postToDelete?.usernameId == decodedToken!.id) {
-        await Post.findByIdAndDelete(id);
-        const user = await User.findById(decodedToken!.id);
-        if (user) {
-          user.posts = user.posts.filter((postId) => postId.toString() != id);
-          await user.save();
+    const postToDelete = await Post.findById(id);
+    if (postToDelete?.usernameId == decodedToken!.id) {
+      // Verifies if the user's post
+      await Post.findByIdAndDelete(id); // delete post from Posts
+      User.findByIdAndUpdate(
+        decodedToken!.id,
+        { $pullAll: { posts: [id] } },
+        (err, data) => {
+          if (!err) {
+            res.send(`${id} delete`);
+          }
         }
-        res.send(`${id} delete`);
-      } else {
-        throw {
-          status: 401,
-          message: 'You are not authorized to delete this post',
-        };
-      }
+      ).clone();
     } else {
-      throw { status: 400, message: 'Id is missing' };
+      throw {
+        status: 401,
+        message: 'You are not authorized to delete this post',
+      };
     }
   } catch (error) {
     next(error);
