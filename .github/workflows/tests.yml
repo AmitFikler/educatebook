@@ -2,9 +2,9 @@ name: Run tests
 
 on:
   pull_request:
-    branches: [main, master]
+    branches: [main, working-branch]
   push:
-    branches: [dev]
+    branches: [main, working-branch]
 
 env:
   ENV_FILE: ${{ secrets.ENV_FILE}}
