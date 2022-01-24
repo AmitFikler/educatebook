@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^27.4.7",
     "nodemon": "^2.0.15",
     "supertest": "^6.2.2",
     "ts-node": "^10.4.0",
@@ -31,5 +32,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.6",
     "validator": "^13.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
