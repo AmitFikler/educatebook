@@ -27,8 +27,8 @@ jobs:
         run: echo "$ENV_FILE" > .env
         working-directory: ./backend
       - name: Install Server dependencies
+        run: npm ci
         working-directory: ./backend
-        run: npm i
       - name: Run Backend Tests
         run: USER_REPORT=${{ github.actor }} REPO_REPORT=${{ github.repository }} node_modules/.bin/jest
         working-directory: ./backend
