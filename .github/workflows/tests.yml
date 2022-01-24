@@ -30,5 +30,5 @@ jobs:
         working-directory: ./backend
         run: npm i
       - name: Run Backend Tests
+        run: USER_REPORT=${{ github.actor }} REPO_REPORT=${{ github.repository }} node_modules/.bin/jest
         working-directory: ./backend
-        run: npm run test
