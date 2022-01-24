@@ -4,9 +4,6 @@ import { app } from '../src/index';
 import { User } from '../src/models/User';
 const api = supertest(app);
 
-const userToken: {
-  token: string;
-} = { token: '' };
 const users = [
   {
     _id: '61e58ae42184d73091dcf6bb',
@@ -40,18 +37,28 @@ describe('user testing:', () => {
         password: '123456',
       });
       let hasToken = response.body.hasOwnProperty('token');
-      userToken.token = response.body.token;
       expect(hasToken).toBe(true);
     });
-    // it('should login with current details and get token', async () => {
-    //   const response = await api.post('/api/login').send({
-    //     username: 'amit@gmail.com',
-    //     password: '123456',
-    //   });
-    //   let hasToken = response.body.hasOwnProperty('token');
-    //   userToken.token = response.body.token;
-    //   expect(hasToken).toBe(true);
-    // });
+    it('should throw (403) with incurrent details (password)', async () => {
+      const response = await api
+        .post('/api/login')
+        .send({
+          username: 'amit@gmail.com',
+          password: 'NOT_PASSWORD',
+        })
+        .expect(403);
+      expect(response.body.error).toBe('wrong password');
+    });
+    it('should throw (403) with incurrent details (username)', async () => {
+      const response = await api
+        .post('/api/login')
+        .send({
+          username: 'amitFAIL@gmail.com',
+          password: '123456',
+        })
+        .expect(403);
+      expect(response.body.error).toBe('wrong username');
+    });
   });
   describe('POST /api/user:', () => {
     it('should create a new user', async () => {
