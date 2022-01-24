@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "build-ts": "tsc",
-    "dev": "cross-env NODE_ENV=development nodemon index.ts",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "keywords": [],

@@ -18,7 +18,7 @@ const handleLogin = async (req: Request, res: Response, next: NextFunction) => {
           id: user._id,
         };
         const token = tokenSign(userForToken);
-        res.json({ token, username });
+        res.status(202).json({ token, username });
       } else {
         throw { status: 403, message: 'wrong password' };
       }

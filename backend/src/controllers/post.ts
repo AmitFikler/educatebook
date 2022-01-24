@@ -23,7 +23,7 @@ const postAPost = async (req: Request, res: Response, next: NextFunction) => {
           if (err) {
             throw { status: 404, message: 'User not found' }; // TODO async/await or cb
           }
-          return res.send(newPost); // succuss
+          return res.status(201).send(newPost); // succuss
         }
       ).clone();
     } else {
@@ -71,11 +71,12 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
       // Verifies if the user's post
       await Post.findByIdAndDelete(id); // delete post from Posts
       User.findByIdAndUpdate(
+        //TODO handle if invalid id
         decodedToken!.id,
         { $pullAll: { posts: [id] } },
         (err, data) => {
           if (!err) {
-            res.send(`${id} delete`); // TODO async/await or cb
+            res.status(204).send(`${id} delete`); // TODO async/await or cb
           }
         }
       ).clone();
