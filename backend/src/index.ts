@@ -7,10 +7,13 @@ import config from './utils/config';
 
 import apiRouter from './routers/api';
 
-const MONGO_URI = config.mongodb_url;
+const MONGO_URI =
+  process.env.NODE_ENV === 'test'
+    ? config.mongodb_url_test
+    : config.mongodb_url;
 const PORT = config.port;
 
-const app = express();
+export const app = express();
 if (MONGO_URI && PORT) {
   mongoose
     .connect(MONGO_URI) // connect to mongodb

@@ -21,9 +21,9 @@ const postAPost = async (req: Request, res: Response, next: NextFunction) => {
         },
         (err, updated) => {
           if (err) {
-            throw { status: 404, message: 'User not found' };
+            throw { status: 404, message: 'User not found' }; // TODO async/await or cb
           }
-          return res.send(newPost); // succuss
+          return res.status(201).send(newPost); // succuss
         }
       ).clone();
     } else {
@@ -42,7 +42,7 @@ const likeAPost = async (req: Request, res: Response, next: NextFunction) => {
       postId,
       { $inc: { likes: 1 } } // increment likes by 1
     );
-    if (!post) throw { status: 404, message: 'Post not found' };
+    if (!post) throw { status: 404, message: 'Post not found' }; //TODO throw 404 and not 500
     res.send(`${postId} has ${post!.likes} likes `);
   } catch (error) {
     next(error);
@@ -71,11 +71,12 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
       // Verifies if the user's post
       await Post.findByIdAndDelete(id); // delete post from Posts
       User.findByIdAndUpdate(
+        //TODO handle if invalid id
         decodedToken!.id,
         { $pullAll: { posts: [id] } },
         (err, data) => {
           if (!err) {
-            res.send(`${id} delete`);
+            res.status(204).send(`${id} delete`); // TODO async/await or cb
           }
         }
       ).clone();

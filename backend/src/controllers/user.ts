@@ -23,9 +23,9 @@ const addNewUser = async (req: Request, res: Response, next: NextFunction) => {
       password: hashPassword,
       role,
     });
-    res.send('user created!');
+    res.status(201).send('user created!');
   } catch (error) {
-    next(error);
+    next({ status: 400, message: 'invalid username or role' });
   }
 };
 
