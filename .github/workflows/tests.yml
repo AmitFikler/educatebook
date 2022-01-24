@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Add server .env file
+      - name: Add server .env file.
         run: echo "$ENV_FILE" > .env
         working-directory: ./backend
       - name: Install Server dependencies
