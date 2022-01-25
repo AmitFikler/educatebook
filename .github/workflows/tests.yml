@@ -6,9 +6,6 @@ on:
   push:
     branches: [main, working-branch]
 
-env:
-  ENV_FILE: ${{ secrets.ENV_FILE}}
-
 jobs:
   Tests:
     runs-on: ubuntu-latest
@@ -24,7 +21,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Add server .env file.
-        run: echo "$ENV_FILE" > .env
+        run: |
+          (echo ${{ secrets.PORT }} 
+          echo ${{ secrets.MONGODB_URL }} 
+          echo ${{ secrets.MONGODB_URL_TEST }}
+          echo ${{ secrets.SALT_ROUNDS }}
+          echo ${{ secrets.SECRET }}) > .env
+
         working-directory: ./backend
       - name: Install Server dependencies
         run: npm ci
