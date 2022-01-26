@@ -6,6 +6,13 @@ on:
   push:
     branches: [main, working-branch]
 
+env:
+  PORT: ${{ secrets.PORT }}
+  MONGODB_URL: ${{ secrets.MONGODB_URL }}
+  MONGODB_URL_TEST: ${{ secrets.MONGODB_URL_TEST }}
+  SALT_ROUNDS: ${{ secrets.SALT_ROUNDS }}
+  SECRET: ${{ secrets.SECRET }}
+
 jobs:
   Tests:
     runs-on: ubuntu-latest
@@ -20,15 +27,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Add server .env file.
-        run: |
-          (echo ${{ secrets.PORT }} 
-          echo ${{ secrets.MONGODB_URL }} 
-          echo ${{ secrets.MONGODB_URL_TEST }}
-          echo ${{ secrets.SALT_ROUNDS }}
-          echo ${{ secrets.SECRET }}) > .env
-
-        working-directory: ./backend
       - name: Install Server dependencies
         run: npm ci
         working-directory: ./backend
