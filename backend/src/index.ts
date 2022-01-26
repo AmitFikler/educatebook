@@ -19,9 +19,6 @@ if (MONGO_URI && PORT) {
     .connect(MONGO_URI) // connect to mongodb
     .then(() => {
       console.log(`connected to MongoDB - ${MONGO_URI}`);
-      app.listen(PORT, () =>
-        console.log(`app listening at http://localhost:${PORT}`)
-      );
     })
     .catch((error) => {
       console.log('error connecting to MongoDB:', error.message);
@@ -34,3 +31,8 @@ app.use(express.json()); //json middleware
 app.use('/api', apiRouter);
 
 app.use(errorHandler); //error handler middleware
+export const server = app.listen(PORT, () =>
+  console.log(`app listening at http://localhost:${PORT}`)
+);
+
+export default app;

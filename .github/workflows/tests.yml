@@ -7,7 +7,11 @@ on:
     branches: [main, working-branch]
 
 env:
-  ENV_FILE: ${{ secrets.ENV_FILE}}
+  PORT: ${{ secrets.PORT }}
+  MONGODB_URL: ${{ secrets.MONGODB_URL }}
+  MONGODB_URL_TEST: ${{ secrets.MONGODB_URL_TEST }}
+  SALT_ROUNDS: ${{ secrets.SALT_ROUNDS }}
+  SECRET: ${{ secrets.SECRET }}
 
 jobs:
   Tests:
@@ -15,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -23,12 +27,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Add server .env file
-        run: echo "$ENV_FILE" > .env
-        working-directory: ./backend
       - name: Install Server dependencies
-        working-directory: ./backend
         run: npm ci
-      - name: Run Backend Tests
         working-directory: ./backend
+      - name: Run Backend Tests
         run: npm run test
+        working-directory: ./backend

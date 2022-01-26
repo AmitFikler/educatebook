@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import supertest from 'supertest';
-import { app } from '../src/index';
+import app, { server } from '../src';
 import { Post } from '../src/models/Post';
 import { User } from '../src/models/User';
 const api = supertest(app);
@@ -253,6 +253,7 @@ describe('POST TESTING:', () => {
   });
 });
 
-afterAll(() => {
-  mongoose.connection.close();
+afterAll(async () => {
+  await mongoose.connection.close();
+  server.close();
 });
