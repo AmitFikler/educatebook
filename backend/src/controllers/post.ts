@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { Post } from '../models/Post';
-import { User } from '../models/User';
-import { createNewPost, likeAPostService } from '../services/postServices';
+import {
+  createNewPost,
+  deletePostService,
+  likeAPostService,
+} from '../services/postServices';
 
 const postAPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -34,7 +37,7 @@ const getAllPosts = async (
   next: NextFunction
 ) => {
   try {
-    const posts = await Post.find({}); // find all posts
+    const posts = await Post.find({}); // get all posts
     res.json(posts);
   } catch (error) {
     next(error);
@@ -45,26 +48,8 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   const decodedToken = req.decodedToken;
   const { id } = req.params;
   try {
-    const postToDelete = await Post.findById(id);
-    if (postToDelete?.usernameId == decodedToken!.id) {
-      // Verifies if the user's post
-      await Post.findByIdAndDelete(id); // delete post from Posts
-      User.findByIdAndUpdate(
-        //TODO handle if invalid id
-        decodedToken!.id,
-        { $pullAll: { posts: [id] } },
-        (err, data) => {
-          if (!err) {
-            res.status(204).send(`${id} delete`); // TODO async/await or cb
-          }
-        }
-      ).clone();
-    } else {
-      throw {
-        status: 401,
-        message: 'You are not authorized to delete this post',
-      };
-    }
+    const deleted = await deletePostService(id, decodedToken!.id);
+    res.status(204).send(deleted);
   } catch (error) {
     next(error);
   }
