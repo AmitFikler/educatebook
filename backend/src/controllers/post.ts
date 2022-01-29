@@ -48,8 +48,8 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   const decodedToken = req.decodedToken;
   const { id } = req.params;
   try {
-    const deleted = await deletePostService(id, decodedToken!.id);
-    res.status(204).send(deleted);
+    await deletePostService(id, decodedToken!.id);
+    res.status(204);
   } catch (error) {
     next(error);
   }
