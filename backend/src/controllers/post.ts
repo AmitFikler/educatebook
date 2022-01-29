@@ -1,31 +1,15 @@
 import { Request, Response, NextFunction } from 'express';
 import { Post } from '../models/Post';
 import { User } from '../models/User';
+import { createNewPost, likeAPostService } from '../services/postServices';
 
 const postAPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const decodedToken = req.decodedToken;
-    const { title, content } = req.body;
-
+    const { title, content } = req.body; // get title and content from body
     if (title && content) {
-      // create new post
-      const newPost = await Post.create({
-        usernameId: decodedToken!.id,
-        title,
-        content,
-      });
-      await User.findByIdAndUpdate(
-        decodedToken!.id,
-        {
-          $addToSet: { posts: newPost }, // push post to array of posts
-        },
-        (err, updated) => {
-          if (err) {
-            throw { status: 404, message: 'User not found' }; // TODO async/await or cb
-          }
-          return res.status(201).send(newPost); // succuss
-        }
-      ).clone();
+      const newPost = await createNewPost(decodedToken!.id, title, content);
+      res.status(201).json(newPost); // send new post
     } else {
       throw { status: 400, message: 'title or content is missing..' };
     }
@@ -35,15 +19,10 @@ const postAPost = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const likeAPost = async (req: Request, res: Response, next: NextFunction) => {
-  const { postId } = req.body;
+  const { postId } = req.body; // get postId from body
   try {
-    if (!postId) throw { status: 400, message: 'Post id is missing' };
-    const post = await Post.findByIdAndUpdate(
-      postId,
-      { $inc: { likes: 1 } } // increment likes by 1
-    );
-    if (!post) throw { status: 404, message: 'Post not found' }; //TODO throw 404 and not 500
-    res.send(`${postId} has ${post!.likes} likes `);
+    const postToLike = await likeAPostService(postId);
+    res.send(`${postId} has ${postToLike!.likes + 1} likes`);
   } catch (error) {
     next(error);
   }
