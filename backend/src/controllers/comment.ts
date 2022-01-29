@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { commentAPost } from '../services/commentServices';
+import {
+  commentAPost,
+  deleteACommentService,
+} from '../services/commentServices';
 
 const addAComment = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -8,10 +11,26 @@ const addAComment = async (req: Request, res: Response, next: NextFunction) => {
     if (!(commentOn || content))
       throw { status: 400, message: 'content or commentOn is missing' };
     const newComment = await commentAPost(content, commentOn, decodedToken!.id);
-    res.json(newComment);
+    res.status(201).json(newComment);
   } catch (error) {
     next(error);
   }
 };
 
-export { addAComment };
+const deleteComment = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const decodedToken = req.decodedToken;
+    const { commentId } = req.params;
+    if (!commentId) throw { status: 400, message: 'commentId is missing' }; // check if commentId is missing
+    await deleteACommentService(commentId, decodedToken!.id);
+    res.status(204);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { addAComment, deleteComment };
