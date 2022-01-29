@@ -126,7 +126,7 @@ describe('LOGIN TESTING', () => {
 });
 
 describe('POST TESTING:', () => {
-  describe('GET /api/post', () => {
+  describe('GET /api/post:', () => {
     it('should be 1 post', async () => {
       const allPosts = await api.get('/api/post');
       expect(allPosts.body).toHaveLength(1);
@@ -174,7 +174,7 @@ describe('POST TESTING:', () => {
     });
   });
 
-  describe('PUT /api/post/like', () => {
+  describe('PUT /api/post/like:', () => {
     it('should like a post', async () => {
       const postToLike = await Post.findOne();
       const postBeforeLike = postToLike?.likes;
@@ -206,13 +206,13 @@ describe('POST TESTING:', () => {
         .send({
           postId: '',
         })
-        .expect(400);
+        .expect(404);
       const postAfterLike = await Post.findById(postToLike?.id);
       expect(postAfterLike?.likes).toBe(1);
     });
   });
 
-  describe('DELETE /api/post', () => {
+  describe('DELETE /api/post:', () => {
     it('should throw (401) if user with invalid token', async () => {
       const allPostsBefore = await Post.find({});
       await api
@@ -225,7 +225,7 @@ describe('POST TESTING:', () => {
       await api
         .delete(`/api/post/invalidId`)
         .set({ Authorization: 'Bearer ' + userToken.token })
-        .expect(500); // TODO fix this to 400
+        .expect(404);
     });
     it(`should user can not delete a post that is not his`, async () => {
       await api

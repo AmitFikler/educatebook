@@ -4,7 +4,7 @@ import { handleLoginService } from '../services/loginServices';
 const handleLogin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { username, password } = req.body; // get username and password from request body
-    handleLoginService(username, password, res);
+    await handleLoginService(username, password, res);
   } catch (error) {
     next(error);
   }
