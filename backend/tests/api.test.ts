@@ -49,6 +49,7 @@ const posts = [
 beforeAll(async () => {
   await User.deleteMany({});
   await Post.deleteMany({});
+  await Comment.deleteMany({});
   await User.insertMany(users);
   await Post.insertMany(posts);
 });
@@ -274,6 +275,57 @@ describe('COMMENTS TESTING:', () => {
       const allCommentAfter = await Comment.find({}); // get all comments after
       expect(allCommentAfter.length).toBe(allComentsBefore.length + 1); // check if the comment was added
       expect(postAfterComment?.comments.length).toBe(commentBefore!.length + 1); // check if the comments are increased
+    });
+  });
+  describe('DELETE /api/comment:', () => {
+    it('should throw (401) if user with invalid token', async () => {
+      const findComment = await Comment.findOne(); // find a comment
+      await api
+        .delete(`/api/comment/${findComment!._id}`)
+        .set({ Authorization: 'Bearer ' + 'invalidToken' }) // set invalid token
+        .expect(401);
+    });
+
+    it('should throw (400) if user with invalid comment id', async () => {
+      await api
+        .delete(`/api/comment/invalidId`) // set invalid comment id
+        .set({ Authorization: 'Bearer ' + userToken.token })
+        .expect(404);
+    });
+    it(`should user can not delete a comment that is not his`, async () => {
+      const findComment = await Comment.findOne(); // find a comment
+      const response = await api.post('/api/login').send({
+        //
+        username: 'test@gmail.com',
+        password: '654321',
+      });
+      await api
+        .delete(`/api/comment/${findComment!._id}`)
+        .set({ Authorization: 'Bearer ' + response.body.token }) // Unauthorized
+        .expect(401);
+    });
+
+    it(`should deletes the post if that user's post`, async () => {
+      const userAmitBefore = await User.findOne({ username: 'amit@gmail.com' });
+      const allCommentsBefore = await Comment.find({});
+      const amitComment = await Comment.findOne({
+        usernameId: userAmitBefore?._id,
+      });
+      const commentPost = await Post.findById(amitComment?.commentOn);
+      const commentBefore = commentPost?.comments;
+      await api
+        .delete(`/api/comment/${amitComment?._id}`)
+        .set({ Authorization: 'Bearer ' + userToken.token }) // authorized
+        .expect(204);
+      const userAmitAfter = await User.findOne({ username: 'amit@gmail.com' });
+      const commentInsideUserComment = userAmitAfter!.comments.includes(
+        amitComment?._id
+      );
+      expect(commentInsideUserComment).toBe(false);
+      const commentPostAfter = await Post.findById(amitComment?.commentOn);
+      const allCommentsAfter = await Comment.find({});
+      expect(allCommentsBefore.length - 1).toBe(allCommentsAfter.length);
+      expect(commentBefore!.length - 1).toBe(commentPostAfter?.comments.length);
     });
   });
 });

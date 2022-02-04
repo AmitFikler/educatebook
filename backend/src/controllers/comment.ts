@@ -27,7 +27,7 @@ const deleteComment = async (
     const { commentId } = req.params;
     if (!commentId) throw { status: 400, message: 'commentId is missing' }; // check if commentId is missing
     await deleteACommentService(commentId, decodedToken!.id);
-    res.status(204);
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }
