@@ -49,7 +49,7 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
   try {
     await deletePostService(id, decodedToken!.id);
-    res.status(204);
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }

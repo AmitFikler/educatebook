@@ -34,7 +34,7 @@ const deletePostService = async (postId: string, userId: string) => {
     const postToDelete = await Post.findById(postId); // get post to delete
     if (!postToDelete) throw { status: 404, message: 'Post not found' }; // if post doesn't exist
     if (postToDelete.usernameId.toString() !== userId)
-      //if user is not the owner of the post
+      // if user is not the owner of the post
       throw { status: 401, message: 'Unauthorized' };
 
     await Post.findByIdAndDelete(postId); // delete post from Posts

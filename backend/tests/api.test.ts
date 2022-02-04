@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import supertest from 'supertest';
 import app, { server } from '../src';
+import { Comment } from '../src/models/Comments';
 import { Post } from '../src/models/Post';
 import { User } from '../src/models/User';
 const api = supertest(app);
@@ -23,7 +24,7 @@ const users = [
     username: 'test@gmail.com',
     password: '$2b$10$QowR0IpE0zKP.bVBSLR0UO/jpja7.Z/PbI7T3xlQ15IZfUsWteVIG', //654321
     role: 'tutor',
-    posts: [],
+    posts: ['61eedbf7212687000f4add13'],
     comments: [],
     createdAt: '2022-01-24T17:01:52.366Z',
     updatedAt: '2022-01-24T17:01:52.366Z',
@@ -86,6 +87,7 @@ describe('USER TESTING:', () => {
     });
   });
 });
+
 describe('LOGIN TESTING', () => {
   describe('POST /api/login:', () => {
     it('should login with current details and get token', async () => {
@@ -249,6 +251,29 @@ describe('POST TESTING:', () => {
       expect(postInsideUserPosts).toBe(false);
       const allPostsAfter = await Post.find({});
       expect(allPostsBefore.length - 1).toBe(allPostsAfter.length);
+    });
+  });
+});
+
+describe('COMMENTS TESTING:', () => {
+  describe('PUT /api/comment:', () => {
+    it('User can comment on posts', async () => {
+      const allComentsBefore = await Comment.find({});
+      const postToComment = await Post.findOne(); // find a post
+      const commentBefore = postToComment?.comments; // get the comments before
+      const response = await api // make a comment
+        .post('/api/comment')
+        .send({
+          commentOn: postToComment?.id,
+          content: 'testing',
+        })
+        .set({ Authorization: 'Bearer ' + userToken.token })
+        .expect(201);
+
+      const postAfterComment = await Post.findById(postToComment?.id); // get the post after comment
+      const allCommentAfter = await Comment.find({}); // get all comments after
+      expect(allCommentAfter.length).toBe(allComentsBefore.length + 1); // check if the comment was added
+      expect(postAfterComment?.comments.length).toBe(commentBefore!.length + 1); // check if the comments are increased
     });
   });
 });
