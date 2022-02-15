@@ -1,17 +1,10 @@
-import {
-  Avatar,
-  Button,
-  Grid,
-  Paper,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Avatar, Button, Grid, Paper, TextField } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import '../styles/loginPage.css';
 import { Link } from 'react-router-dom';
 function LoginPage() {
   return (
-    <Grid spacing={3}>
+    <Grid>
       <Paper className="loginPaper" elevation={10}>
         <Grid align="center">
           <Avatar style={{ backgroundColor: '#368bff' }}>
@@ -20,9 +13,9 @@ function LoginPage() {
           <h2>Sign in</h2>
         </Grid>
         <TextField
-          label="Username"
+          label="Email"
           variant="standard"
-          placeholder="Enter username"
+          placeholder="Enter email"
           fullWidth
           style={{ margin: '8px 0' }}
           required
