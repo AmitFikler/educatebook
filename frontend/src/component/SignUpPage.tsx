@@ -11,12 +11,34 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import '../styles/signUpPage.css';
-import Logo from './Logo';
+import { useState } from 'react';
+import axios from 'axios';
 
 function SignUpPage() {
+  /********* STATES *********/
+  const [email, setEmail] = useState<string | undefined>();
+  const [password, setPassword] = useState<string | undefined>();
+  const [role, setRole] = useState<'student' | 'tutor' | undefined>();
+
+  /********* NAVIGATE *********/
+  const navigate = useNavigate();
+
+  /********* Sign-Up *********/
+  const handleSignUp = async () => {
+    try {
+      await axios.post(`${process.env.REACT_APP_SERVER_URI}/api/user`, {
+        username: email,
+        password,
+        role,
+      });
+      navigate('/login');
+    } catch (error) {
+      console.log(error); //TODO tosetify
+    }
+  };
   return (
     <Grid>
       <Paper className="signUpPaper" elevation={20}>
@@ -34,11 +56,16 @@ function SignUpPage() {
           variant="standard"
           type="email"
           placeholder="Enter email"
+          onChange={(e) => setEmail(e.target.value)}
           fullWidth
           style={{ margin: '8px 0' }}
           required
         />
-        <FormControl component="fieldset" style={{ marginTop: '5px' }}>
+        <FormControl
+          component="fieldset"
+          style={{ marginTop: '5px' }}
+          onChange={(e) => setRole(e.target.value)}
+        >
           <FormLabel component="legend" required>
             Role
           </FormLabel>
@@ -61,15 +88,7 @@ function SignUpPage() {
           variant="standard"
           placeholder="Enter password"
           fullWidth
-          type="password"
-          required
-        />
-        <TextField
-          label="Confirm Password"
-          style={{ margin: '8px 0' }}
-          variant="standard"
-          placeholder="Confirm Password"
-          fullWidth
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
           required
         />
@@ -79,6 +98,7 @@ function SignUpPage() {
           fullWidth
           variant="contained"
           style={{ margin: '8px 0' }}
+          onClick={() => handleSignUp()}
         >
           Sign Up
         </Button>
