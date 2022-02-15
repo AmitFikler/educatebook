@@ -1,0 +1,13 @@
+.signUpPaper {
+  padding: 30px 20px;
+  width: 500px;
+  margin: 20px auto;
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.headerSignUp {
+  margin: 0;
+}

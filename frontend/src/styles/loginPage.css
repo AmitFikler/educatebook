@@ -1,9 +1,11 @@
 .loginPaper {
   padding: 20px;
-  height: 70vh;
-  width: 300px;
+  width: 500px;
   margin: 30px auto;
-  border-radius: 10px;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .signinBtn {
