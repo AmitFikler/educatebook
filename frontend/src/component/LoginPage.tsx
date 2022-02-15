@@ -1,8 +1,34 @@
 import { Avatar, Button, Grid, Paper, TextField } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import '../styles/loginPage.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import { setToken } from '../helpers/tokenHelper';
 function LoginPage() {
+  /********* STATES *********/
+  const [email, setEmail] = useState<string | undefined>();
+  const [password, setPassword] = useState<string | undefined>();
+
+  /********* NAVIGATE *********/
+  const navigate = useNavigate();
+
+  /********* Sign-In *********/
+  const handleSignIn = async () => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_SERVER_URI}/api/login`,
+        {
+          username: email,
+          password,
+        }
+      );
+      setToken(data.token);
+      navigate('/');
+    } catch (error) {
+      console.log(error); //TODO-tosetify
+    }
+  };
   return (
     <Grid>
       <Paper className="loginPaper" elevation={10}>
@@ -18,6 +44,7 @@ function LoginPage() {
           placeholder="Enter email"
           fullWidth
           style={{ margin: '8px 0' }}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <TextField
@@ -27,6 +54,7 @@ function LoginPage() {
           placeholder="Enter password"
           fullWidth
           type="password"
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         <Button
@@ -35,6 +63,7 @@ function LoginPage() {
           fullWidth
           variant="contained"
           style={{ margin: '8px 0' }}
+          onClick={() => handleSignIn()}
         >
           Sign in
         </Button>
