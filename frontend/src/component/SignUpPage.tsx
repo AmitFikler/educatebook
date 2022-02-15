@@ -36,7 +36,7 @@ function SignUpPage() {
       });
       navigate('/login');
     } catch (error) {
-      console.log(error); //TODO tosetify
+      console.log(error); //TODO-tosetify
     }
   };
   return (

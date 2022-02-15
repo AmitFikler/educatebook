@@ -7,7 +7,6 @@ import SignUpPage from './component/SignUpPage';
 function App() {
   return (
     <div className="App">
-      <Logo />
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
