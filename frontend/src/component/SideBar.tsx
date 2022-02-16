@@ -52,6 +52,7 @@ function SideBar() {
           {menuItems.map((item) => (
             <ListItem
               key={item.text}
+              className="navbar-links"
               onClick={() =>
                 item.path === '/login' ? handleLogOut() : navigate(item.path)
               }

@@ -1,3 +1,54 @@
 .drawer {
   width: 240px;
 }
+
+.navbar-links {
+  cursor: pointer;
+}
+
+.navbar-links:hover {
+  background-color: rgb(142, 255, 240);
+}
+
+.topbarContainer {
+  height: 50px;
+  width: 100%;
+  background-color: #4998ff;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.topbarLeft {
+  flex: 3;
+}
+
+.topbarRight {
+  flex: 4;
+}
+
+.logo {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.searchbar {
+  width: 90%;
+  height: 30px;
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  border: none;
+  width: 80%;
+  font-size: 15px;
+}
+
+.searchInput:focus {
+  outline: none;
+}
