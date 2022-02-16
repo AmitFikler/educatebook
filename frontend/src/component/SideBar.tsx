@@ -42,7 +42,7 @@ function SideBar() {
     navigate('/login');
   };
   return (
-    <div>
+    <div className="sidebar-div">
       <Drawer
         variant="permanent"
         sx={{

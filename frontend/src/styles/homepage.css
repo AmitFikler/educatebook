@@ -4,6 +4,12 @@
   width: 240px;
 }
 
+@media only screen and (max-width: 600px) {
+  .sidebar-div {
+    width: 12%;
+  }
+}
+
 .navbar-links {
   cursor: pointer;
 }
@@ -67,5 +73,33 @@
 }
 
 .feedWrapper {
-  padding: 20px;
+  padding: 10px;
+}
+
+.sharePost {
+  margin-top: 1px;
+}
+
+.postWrapper {
+  margin-top: 25px;
+}
+
+.postOwner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.postEmail {
+  margin-left: 9px;
+}
+.postFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  align-content: stretch;
+}
+
+.likes {
+  display: flex;
 }

@@ -1,5 +1,4 @@
 import { Search } from '@mui/icons-material';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 function TopBar() {
   return (
