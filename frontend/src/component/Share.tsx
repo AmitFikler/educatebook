@@ -5,6 +5,8 @@ function Share() {
     <div className="share">
       <div className="shareWrapper">
         <Paper style={{ padding: '10px' }}>
+          <h4>Share a post</h4>
+          <TextField label="Title" variant="filled" style={{ width: '100%' }} />
           <TextField
             id="filled-multiline-static"
             label="Share a post.."
