@@ -10,7 +10,6 @@ function HomePage() {
         <SideBarComp />
         <Feed />
       </div>
-      <h2>Home Page</h2>
     </div>
   );
 }

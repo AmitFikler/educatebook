@@ -5,9 +5,7 @@ function TopBar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">
-          EducatBook <MenuBookIcon />
-        </span>
+        <span className="logo">EducatBook</span>
       </div>
       <div className="topbarRight">
         <div className="searchbar">

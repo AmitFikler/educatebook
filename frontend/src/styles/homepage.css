@@ -36,6 +36,7 @@
   font-size: 24px;
   color: white;
   cursor: pointer;
+  padding: 15px;
 }
 
 .searchbar {
@@ -60,7 +61,11 @@
 .homeContainer {
   display: flex;
 }
-
+/* FEED */
 .feed {
   flex: 5;
+}
+
+.feedWrapper {
+  padding: 20px;
 }

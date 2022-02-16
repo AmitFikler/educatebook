@@ -50,7 +50,10 @@ function SideBar() {
 
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
-            width: 240,
+            width: 200,
+            ['@media (max-width:780px)']: {
+              width: 50,
+            },
             top: '50px',
             boxSizing: 'border-box',
             boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
