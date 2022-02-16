@@ -1,10 +1,11 @@
+import SideBarComp from './SideBar';
+import '../styles/homepage.css';
 function HomePage() {
   return (
-    <>
-      <div>
-        <h1>Home Page</h1>
-      </div>
-    </>
+    <div className="root">
+      <SideBarComp />
+      <h2>Home Page</h2>
+    </div>
   );
 }
 
