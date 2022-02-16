@@ -32,7 +32,8 @@ function LoginPage() {
   return (
     <Grid>
       <Paper className="loginPaper" elevation={10}>
-        <Grid align="center">
+        <Grid>
+          {/* TODO align="center" */}
           <Avatar style={{ backgroundColor: '#368bff' }}>
             <LockOutlinedIcon />
           </Avatar>

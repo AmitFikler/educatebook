@@ -42,7 +42,8 @@ function SignUpPage() {
   return (
     <Grid>
       <Paper className="signUpPaper" elevation={20}>
-        <Grid align="center">
+        <Grid>
+          {/* // TODO align center */}
           <Avatar style={{ backgroundColor: '#368bff' }}>
             <AddCircleIcon />
           </Avatar>
@@ -64,7 +65,7 @@ function SignUpPage() {
         <FormControl
           component="fieldset"
           style={{ marginTop: '5px' }}
-          onChange={(e) => setRole(e.target.value)}
+          onChange={(e: any) => setRole(e.target.value)} //TODO -type any
         >
           <FormLabel component="legend" required>
             Role
