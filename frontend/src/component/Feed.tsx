@@ -1,8 +1,8 @@
 function Feed() {
   return (
-    <>
+    <div className="feed">
       <>feed</>
-    </>
+    </div>
   );
 }
 

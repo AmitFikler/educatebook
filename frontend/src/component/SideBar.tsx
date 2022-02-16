@@ -4,10 +4,9 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Typography,
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import FeedIcon from '@mui/icons-material/Feed';
+import RssFeedIcon from '@mui/icons-material/RssFeed';
 import ForumIcon from '@mui/icons-material/Forum';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +20,7 @@ function SideBar() {
     },
     {
       text: 'Feed',
-      icon: <FeedIcon />,
+      icon: <RssFeedIcon />,
       path: '/',
     },
     {
@@ -43,11 +42,21 @@ function SideBar() {
     navigate('/login');
   };
   return (
-    <div style={{ display: 'flex' }}>
-      <Drawer variant="permanent" anchor="left">
-        <div className="drawer">
-          <Typography variant="h5">EducatBook</Typography>
-        </div>
+    <div>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: 240,
+
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: 240,
+            top: '50px',
+            boxSizing: 'border-box',
+            boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+          },
+        }}
+      >
         <List>
           {menuItems.map((item) => (
             <ListItem

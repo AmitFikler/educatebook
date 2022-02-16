@@ -1,3 +1,5 @@
+/* SIDE BAR */
+
 .drawer {
   width: 240px;
 }
@@ -7,9 +9,10 @@
 }
 
 .navbar-links:hover {
-  background-color: rgb(142, 255, 240);
+  background-color: #4998ff80;
 }
 
+/* TOP BAR */
 .topbarContainer {
   height: 50px;
   width: 100%;
@@ -18,6 +21,7 @@
   align-items: center;
   position: sticky;
   top: 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .topbarLeft {
@@ -51,4 +55,12 @@
 
 .searchInput:focus {
   outline: none;
+}
+
+.homeContainer {
+  display: flex;
+}
+
+.feed {
+  flex: 5;
 }
