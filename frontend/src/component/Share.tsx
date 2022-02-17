@@ -1,13 +1,26 @@
 import { Button, Paper, TextField } from '@mui/material';
+import { useState } from 'react';
 
-function Share() {
+interface props {
+  shareNewPost: (title: string, content: string) => void;
+}
+function Share({ shareNewPost }: props) {
+  const [title, setTitle] = useState<string | undefined>(undefined);
+  const [content, setContent] = useState<string | undefined>(undefined);
+
   return (
     <div className="share">
       <div className="shareWrapper">
         <Paper style={{ padding: '10px' }}>
           <h4>Share a post</h4>
-          <TextField label="Title" variant="filled" style={{ width: '100%' }} />
           <TextField
+            label="Title"
+            variant="filled"
+            style={{ width: '100%' }}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <TextField
+            onChange={(e) => setContent(e.target.value)}
             id="filled-multiline-static"
             label="Share a post.."
             multiline
@@ -16,6 +29,9 @@ function Share() {
             style={{ width: '100%' }}
           />
           <Button
+            onClick={() =>
+              title && content ? shareNewPost(title, content) : null
+            }
             style={{ marginTop: '4px' }}
             variant="contained"
             color="success"
