@@ -1,6 +1,7 @@
 import { Avatar, Paper } from '@mui/material';
+import { CommentType } from '../../@types/@types';
 
-function Comment() {
+function Comment({ comment }: { comment: CommentType }) {
   return (
     <div className="comment">
       <div className="commentWrapper">
@@ -18,11 +19,7 @@ function Comment() {
             </span>
             <p>12/2/2022 16:50</p>
           </div>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-            mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-            voluptatum laborum numquam blanditiis harum quisquam eius sed
-          </p>
+          <p>{comment.content}</p>
         </Paper>
       </div>
     </div>
