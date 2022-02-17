@@ -44,6 +44,10 @@ const getAllPosts = async (
       })
       .populate({
         path: 'comments',
+        populate: {
+          path: 'usernameId',
+          select: ['username', 'role'],
+        },
       }); // get all posts
     res.json(posts);
   } catch (error) {
@@ -61,6 +65,10 @@ const getOnePost = async (req: Request, res: Response, next: NextFunction) => {
       })
       .populate({
         path: 'comments',
+        populate: {
+          path: 'usernameId',
+          select: ['username', 'role'],
+        },
       }); // get all posts
     res.json(post);
   } catch (error) {
