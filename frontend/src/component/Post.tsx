@@ -7,7 +7,13 @@ import ShareComment from './ShareComment';
 import { PostType } from '../../@types/@types';
 import moment from 'moment';
 
-function Post({ post }: { post: PostType }) {
+function Post({
+  post,
+  shareAComment,
+}: {
+  post: PostType;
+  shareAComment: (commentOn: string, content: string) => void;
+}) {
   const [showComments, setShowComments] = useState<boolean>(false);
   return (
     <div className="post" id={post._id}>
@@ -31,12 +37,15 @@ function Post({ post }: { post: PostType }) {
               {'  '}
               <ThumbUpIcon color="primary" />
             </div>
-            <CommentIcon
-              color="primary"
-              onClick={() =>
-                showComments ? setShowComments(false) : setShowComments(true)
-              }
-            />
+            <div className="comments">
+              {post.comments.length}
+              <CommentIcon
+                color="primary"
+                onClick={() =>
+                  showComments ? setShowComments(false) : setShowComments(true)
+                }
+              />
+            </div>
           </div>
         </Paper>
         {showComments ? (
@@ -44,7 +53,7 @@ function Post({ post }: { post: PostType }) {
             {post.comments.map((comment) => (
               <Comment comment={comment} />
             ))}
-            <ShareComment />
+            <ShareComment shareAComment={shareAComment} postId={post._id} />
           </div>
         ) : (
           ''
