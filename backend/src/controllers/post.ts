@@ -37,11 +37,32 @@ const getAllPosts = async (
   next: NextFunction
 ) => {
   try {
-    const posts = await Post.find({}).populate({
-      path: 'usernameId',
-      select: ['username', 'role'],
-    }); // get all posts
+    const posts = await Post.find({})
+      .populate({
+        path: 'usernameId',
+        select: ['username', 'role'],
+      })
+      .populate({
+        path: 'comments',
+      }); // get all posts
     res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOnePost = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const post = await Post.findById(id)
+      .populate({
+        path: 'usernameId',
+        select: ['username', 'role'],
+      })
+      .populate({
+        path: 'comments',
+      }); // get all posts
+    res.json(post);
   } catch (error) {
     next(error);
   }
@@ -58,4 +79,4 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { postAPost, likeAPost, getAllPosts, deletePost };
+export { postAPost, likeAPost, getAllPosts, deletePost, getOnePost };
