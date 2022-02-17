@@ -37,7 +37,10 @@ const getAllPosts = async (
   next: NextFunction
 ) => {
   try {
-    const posts = await Post.find({}); // get all posts
+    const posts = await Post.find({}).populate({
+      path: 'usernameId',
+      select: ['username', 'role'],
+    }); // get all posts
     res.json(posts);
   } catch (error) {
     next(error);
