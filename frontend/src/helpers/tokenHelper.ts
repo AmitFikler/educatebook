@@ -3,7 +3,7 @@ const setToken = (token: string) => {
 };
 
 const getToken = () => {
-  localStorage.getItem('jwt');
+  return localStorage.getItem('jwt');
 };
 
 const removeToken = () => {
