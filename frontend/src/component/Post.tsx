@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Comment from './Comment';
 import ShareComment from './ShareComment';
 import { PostType } from '../../@types/@types';
+import moment from 'moment';
 
 function Post({ post }: { post: PostType }) {
   const [showComments, setShowComments] = useState<boolean>(false);
@@ -21,7 +22,7 @@ function Post({ post }: { post: PostType }) {
           </div>
           <div className="postContent">
             <h3>{post.title}</h3>
-            <p>{post.createdAt}</p>
+            <p>{moment(post.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
             <p>{post.content}</p>
           </div>
           <div className="postFooter">
