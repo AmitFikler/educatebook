@@ -26,7 +26,7 @@ function LoginPage() {
       setToken(data.token);
       navigate('/');
     } catch (error) {
-      console.log(error); //TODO-tosetify
+      console.log(error.response.data.error); //TODO-tosetify
     }
   };
   return (
