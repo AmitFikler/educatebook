@@ -13,7 +13,7 @@ const router = express.Router();
 router.get('/', getAllPosts);
 router.get('/:id', getOnePost);
 router.post('/', userFinder, postAPost);
-router.put('/like', likeAPost);
+router.put('/like', userFinder, likeAPost);
 router.delete('/:id', userFinder, deletePost);
 
 export default router;
