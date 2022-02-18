@@ -12,10 +12,12 @@ function Post({
   post,
   shareAComment,
   handleDelete,
+  handleLike,
 }: {
   post: PostType;
   shareAComment: (commentOn: string, content: string) => void;
   handleDelete: (postId: string) => Promise<void>;
+  handleLike: (postId: string) => Promise<void>;
 }) {
   const [showComments, setShowComments] = useState<boolean>(false);
   return (
@@ -44,7 +46,11 @@ function Post({
             <div className="likes">
               {post.likes}
               {'  '}
-              <ThumbUpIcon color="primary" style={{ cursor: 'pointer' }} />
+              <ThumbUpIcon
+                onClick={() => handleLike(post._id)}
+                color="primary"
+                style={{ cursor: 'pointer' }}
+              />
             </div>
             <div className="comments">
               {post.comments.length}

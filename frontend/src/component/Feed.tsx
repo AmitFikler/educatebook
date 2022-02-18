@@ -40,7 +40,7 @@ function Feed() {
       );
       setPosts([data, ...posts]); // add new post to the top of the list
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error);
     }
   };
 
@@ -67,7 +67,7 @@ function Feed() {
         });
       });
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error);
     }
   };
 
@@ -83,7 +83,31 @@ function Feed() {
       );
       setPosts((prevPost) => prevPost.filter((post) => post._id !== postId));
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error);
+    }
+  };
+
+  const handleLike = async (postId: string) => {
+    try {
+      await axios.put(
+        `${process.env.REACT_APP_SERVER_URI}/api/post/like`,
+        { postId },
+        {
+          headers: {
+            authorization: getToken()!,
+          },
+        }
+      );
+      setPosts((prevPost) => {
+        return prevPost.map((post) => {
+          if (post._id === postId) {
+            post.likes = post.likes + 1;
+          }
+          return post;
+        });
+      });
+    } catch (error) {
+      console.log(error.response.data.error);
     }
   };
 
@@ -97,6 +121,7 @@ function Feed() {
             post={post}
             shareAComment={shareAComment}
             handleDelete={handleDelete}
+            handleLike={handleLike}
           />
         ))}
       </div>
