@@ -23,7 +23,7 @@ const commentAPost = async (
   await Post.findByIdAndUpdate(commentOn, {
     $addToSet: { comments: newComment },
   }); // add new comment to post's comments
-  return newComment;
+  return newComment.populate('usernameId');
 };
 
 const deleteACommentService = async (commentId: string, userId: string) => {
