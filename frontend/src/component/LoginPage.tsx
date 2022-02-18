@@ -2,10 +2,14 @@ import { Avatar, Button, Grid, Paper, TextField } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import '../styles/loginPage.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 import { setToken } from '../helpers/tokenHelper';
+import { UserContext } from '../UserContext';
+
 function LoginPage() {
+  const value = useContext(UserContext);
+
   /********* STATES *********/
   const [email, setEmail] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
@@ -23,7 +27,9 @@ function LoginPage() {
           password,
         }
       );
+      // setUser(data.user);
       setToken(data.token);
+      value?.setUser(data.user);
       navigate('/');
     } catch (error) {
       console.log(error.response.data.error); //TODO-tosetify

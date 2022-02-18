@@ -18,3 +18,13 @@ interface UserForPost {
   username: string;
   role: string;
 }
+
+export interface UserType {
+  _id: string;
+  username: string;
+  password: string;
+  role: string;
+  posts: PostType[];
+  comments: CommentType[];
+  likes: [string];
+}
