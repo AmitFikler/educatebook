@@ -71,12 +71,33 @@ function Feed() {
     }
   };
 
+  const handleDelete = async (postId: string) => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_URI}/api/post/${postId}`,
+        {
+          headers: {
+            authorization: getToken()!,
+          },
+        }
+      );
+      setPosts((prevPost) => prevPost.filter((post) => post._id !== postId));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="feed">
       <div className="feedWrapper">
         <Share shareNewPost={shareNewPost} />
         {posts.map((post) => (
-          <Post key={post._id} post={post} shareAComment={shareAComment} />
+          <Post
+            key={post._id}
+            post={post}
+            shareAComment={shareAComment}
+            handleDelete={handleDelete}
+          />
         ))}
       </div>
     </div>

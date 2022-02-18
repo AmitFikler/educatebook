@@ -5,14 +5,17 @@ import { useState } from 'react';
 import Comment from './Comment';
 import ShareComment from './ShareComment';
 import { PostType } from '../../@types/@types';
+import DeleteIcon from '@mui/icons-material/Delete';
 import moment from 'moment';
 
 function Post({
   post,
   shareAComment,
+  handleDelete,
 }: {
   post: PostType;
   shareAComment: (commentOn: string, content: string) => void;
+  handleDelete: (postId: string) => Promise<void>;
 }) {
   const [showComments, setShowComments] = useState<boolean>(false);
   return (
@@ -24,7 +27,13 @@ function Post({
               <Avatar>{post.usernameId.username[0].toUpperCase()}</Avatar>
               <p className="postEmail">{post.usernameId.username}</p>
             </span>
-            <h5>{post.usernameId.role}</h5>
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              <h5>{post.usernameId.role}</h5>
+              <DeleteIcon
+                style={{ cursor: 'pointer' }}
+                onClick={() => handleDelete(post._id)}
+              />
+            </span>
           </div>
           <div className="postContent">
             <h3>{post.title}</h3>
@@ -35,11 +44,12 @@ function Post({
             <div className="likes">
               {post.likes}
               {'  '}
-              <ThumbUpIcon color="primary" />
+              <ThumbUpIcon color="primary" style={{ cursor: 'pointer' }} />
             </div>
             <div className="comments">
               {post.comments.length}
               <CommentIcon
+                style={{ cursor: 'pointer' }}
                 color="primary"
                 onClick={() =>
                   showComments ? setShowComments(false) : setShowComments(true)
