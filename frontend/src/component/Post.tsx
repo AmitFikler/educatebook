@@ -1,12 +1,14 @@
 import { Avatar, Paper } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import CommentIcon from '@mui/icons-material/Comment';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Comment from './Comment';
 import ShareComment from './ShareComment';
 import { PostType } from '../../@types/@types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import moment from 'moment';
+import { UserContext } from '../UserContext';
 
 function Post({
   post,
@@ -17,8 +19,14 @@ function Post({
   post: PostType;
   shareAComment: (commentOn: string, content: string) => void;
   handleDelete: (postId: string) => Promise<void>;
-  handleLike: (postId: string) => Promise<void>;
+  handleLike: (
+    postId: string,
+    likes: number,
+    type: 'like' | 'unlike'
+  ) => Promise<void>;
 }) {
+  const value = useContext(UserContext);
+
   const [showComments, setShowComments] = useState<boolean>(false);
   return (
     <div className="post" id={post._id}>
@@ -31,10 +39,12 @@ function Post({
             </span>
             <span style={{ display: 'flex', alignItems: 'center' }}>
               <h5>{post.usernameId.role}</h5>
-              <DeleteIcon
-                style={{ cursor: 'pointer' }}
-                onClick={() => handleDelete(post._id)}
-              />
+              {value?.user?.posts.includes(post._id) && (
+                <DeleteIcon
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleDelete(post._id)}
+                />
+              )}
             </span>
           </div>
           <div className="postContent">
@@ -44,13 +54,19 @@ function Post({
           </div>
           <div className="postFooter">
             <div className="likes">
+              {value?.user?.likes.includes(post._id) ? (
+                <ThumbDownIcon
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleLike(post._id, post.likes - 1, 'unlike')}
+                />
+              ) : (
+                <ThumbUpIcon
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleLike(post._id, post.likes + 1, 'like')}
+                  color="primary"
+                />
+              )}
               {post.likes}
-              {'  '}
-              <ThumbUpIcon
-                onClick={() => handleLike(post._id)}
-                color="primary"
-                style={{ cursor: 'pointer' }}
-              />
             </div>
             <div className="comments">
               {post.comments.length}
@@ -66,8 +82,8 @@ function Post({
         </Paper>
         {showComments ? (
           <div className="comment-container">
-            {post.comments.map((comment) => (
-              <Comment comment={comment} />
+            {post.comments.map((comment, i) => (
+              <Comment key={i} comment={comment} />
             ))}
             <ShareComment shareAComment={shareAComment} postId={post._id} />
           </div>
