@@ -22,10 +22,15 @@ const postAPost = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const likeAPost = async (req: Request, res: Response, next: NextFunction) => {
-  const { postId } = req.body; // get postId from body
+  const { postId, likes, type } = req.body; // get postId, likes and type from body
   const decodedToken = req.decodedToken;
   try {
-    const postToLike = await likeAPostService(postId, decodedToken!.id);
+    const postToLike = await likeAPostService(
+      postId,
+      decodedToken!.id,
+      Number(likes),
+      type
+    );
     res.send(`${postId} has ${postToLike!.likes + 1} likes`);
   } catch (error) {
     next(error);
