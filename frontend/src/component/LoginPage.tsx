@@ -8,7 +8,7 @@ import { setToken } from '../helpers/tokenHelper';
 import { UserContext } from '../UserContext';
 
 function LoginPage() {
-  const value = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext)!;
 
   /********* STATES *********/
   const [email, setEmail] = useState<string | undefined>();
@@ -29,7 +29,7 @@ function LoginPage() {
       );
       // setUser(data.user);
       setToken(data.token);
-      value?.setUser(data.user);
+      setUser(data.user);
       navigate('/');
     } catch (error) {
       console.log(error.response.data.error); //TODO-tosetify
