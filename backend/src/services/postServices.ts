@@ -15,12 +15,26 @@ const createNewPost = async (id: string, title: string, content: string) => {
   return newPost;
 };
 
-const likeAPostService = async (postId: string) => {
+const likeAPostService = async (
+  postId: string,
+  usernameId: string,
+  likes: number,
+  type: 'like' | 'unlike'
+) => {
   try {
     const post = await Post.findByIdAndUpdate(
       postId,
-      { $inc: { likes: 1 } } // increment likes by 1
+      { likes: likes } // update likes
     );
+    if (type === 'like') {
+      await User.findByIdAndUpdate(usernameId, {
+        $addToSet: { likes: postId }, // add post to user's likes
+      });
+    } else {
+      await User.findByIdAndUpdate(usernameId, {
+        $pull: { likes: postId }, // remove post from user's likes
+      });
+    }
     return post;
   } catch (e) {
     throw { status: 404, message: 'Post not found' };

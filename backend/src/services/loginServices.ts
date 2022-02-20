@@ -23,7 +23,7 @@ const handleLoginService = async (
           id: user._id,
         };
         const token = tokenSign(userForToken); // create token
-        res.status(202).json({ token, username }); // send token and username
+        res.status(202).json({ token, user }); // send token and username
       } else {
         throw { status: 403, message: 'wrong password' };
       }

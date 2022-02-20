@@ -22,9 +22,15 @@ const postAPost = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const likeAPost = async (req: Request, res: Response, next: NextFunction) => {
-  const { postId } = req.body; // get postId from body
+  const { postId, likes, type } = req.body; // get postId, likes and type from body
+  const decodedToken = req.decodedToken;
   try {
-    const postToLike = await likeAPostService(postId);
+    const postToLike = await likeAPostService(
+      postId,
+      decodedToken!.id,
+      Number(likes),
+      type
+    );
     res.send(`${postId} has ${postToLike!.likes + 1} likes`);
   } catch (error) {
     next(error);
@@ -37,8 +43,40 @@ const getAllPosts = async (
   next: NextFunction
 ) => {
   try {
-    const posts = await Post.find({}); // get all posts
+    const posts = await Post.find({})
+      .populate({
+        path: 'usernameId',
+        select: ['username', 'role'],
+      })
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'usernameId',
+          select: ['username', 'role'],
+        },
+      }); // get all posts
     res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOnePost = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const post = await Post.findById(id)
+      .populate({
+        path: 'usernameId',
+        select: ['username', 'role'],
+      })
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'usernameId',
+          select: ['username', 'role'],
+        },
+      }); // get all posts
+    res.json(post);
   } catch (error) {
     next(error);
   }
@@ -55,4 +93,4 @@ const deletePost = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { postAPost, likeAPost, getAllPosts, deletePost };
+export { postAPost, likeAPost, getAllPosts, deletePost, getOnePost };

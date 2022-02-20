@@ -1,0 +1,13 @@
+.loginPaper {
+  padding: 20px;
+  width: 500px;
+  margin: 30px auto;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.signinBtn {
+  margin: 8px 0;
+}

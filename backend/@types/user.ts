@@ -6,5 +6,6 @@ export interface User {
   role: Role;
   posts: Types.ObjectId[];
   comments: Types.ObjectId[];
+  likes: Types.ObjectId[];
 }
 export type Role = 'tutor' | 'student';

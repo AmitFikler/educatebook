@@ -1,0 +1,115 @@
+/* SIDE BAR */
+
+.drawer {
+  width: 240px;
+}
+
+@media only screen and (max-width: 600px) {
+  .sidebar-div {
+    width: 12%;
+  }
+}
+
+.navbar-links {
+  cursor: pointer;
+}
+
+.navbar-links:hover {
+  background-color: #4998ff80;
+}
+
+/* TOP BAR */
+.topbarContainer {
+  height: 50px;
+  width: 100%;
+  background-color: #4998ff;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 10;
+}
+
+.topbarLeft {
+  flex: 3;
+}
+
+.topbarRight {
+  flex: 4;
+}
+
+.logo {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+}
+
+.searchbar {
+  width: 90%;
+  height: 30px;
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  border: none;
+  width: 80%;
+  font-size: 15px;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.homeContainer {
+  display: flex;
+}
+/* FEED */
+.feed {
+  flex: 5;
+}
+
+.feedWrapper {
+  padding: 10px;
+}
+
+.sharePost {
+  margin-top: 1px;
+}
+
+.postWrapper {
+  margin-top: 25px;
+}
+
+.postOwner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.postEmail {
+  margin-left: 9px;
+}
+.postFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  align-content: stretch;
+}
+
+.likes {
+  display: flex;
+}
+
+.comments {
+  display: flex;
+}
+
+.comment-container {
+  margin-top: 2px;
+}

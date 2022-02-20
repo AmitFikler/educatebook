@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema<User>(
     },
     posts: [{ type: 'ObjectId', ref: 'Post' }],
     comments: [{ type: 'ObjectId', ref: 'Comment' }],
+    likes: [{ type: 'ObjectId', ref: 'Post' }],
   },
   { timestamps: true }
 );

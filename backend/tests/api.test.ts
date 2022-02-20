@@ -185,7 +185,10 @@ describe('POST TESTING:', () => {
         .put('/api/post/like')
         .send({
           postId: postToLike?.id,
+          likes: postToLike!.likes + 1,
+          type: 'like',
         })
+        .set({ Authorization: 'Bearer ' + userToken.token })
         .expect(200);
       const postAfterLike = await Post.findById(postToLike?.id);
       expect(postAfterLike?.likes).toBe(postBeforeLike! + 1);
@@ -194,9 +197,14 @@ describe('POST TESTING:', () => {
     it('should throw if gets invalid id', async () => {
       const postToLike = await Post.findOne();
       expect(postToLike?.likes).toBe(1);
-      await api.put('/api/post/like').send({
-        postId: 'invalidId',
-      });
+      await api
+        .put('/api/post/like')
+        .send({
+          postId: 'invalidId',
+          likes: postToLike!.likes + 1,
+          type: 'like',
+        })
+        .set({ Authorization: 'Bearer ' + userToken.token });
       const postAfterLike = await Post.findById(postToLike?.id);
       expect(postAfterLike?.likes).toBe(1);
     });
@@ -208,7 +216,10 @@ describe('POST TESTING:', () => {
         .put('/api/post/like')
         .send({
           postId: '',
+          likes: postToLike!.likes + 1,
+          type: 'like',
         })
+        .set({ Authorization: 'Bearer ' + userToken.token })
         .expect(404);
       const postAfterLike = await Post.findById(postToLike?.id);
       expect(postAfterLike?.likes).toBe(1);

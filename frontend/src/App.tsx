@@ -1,55 +1,35 @@
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { useMemo, useState } from 'react';
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+import { UserType } from '../@types/@types';
+import HomePage from './component/HomePage';
+import LoginPage from './component/LoginPage';
+import SignUpPage from './component/SignUpPage';
+import { UserContext } from './UserContext';
 
 function App() {
+  const [user, setUser] = useState<UserType | null>(null);
+
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+
+  const ComingSoon = () => (
+    <div>
+      <h1>Coming Soon</h1>
+      <Link to="/">Back Home</Link>
+    </div>
+  );
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <UserContext.Provider value={value}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/chat" element={<ComingSoon />} />
+            <Route path="/profile" element={<ComingSoon />} />
+          </Routes>
+        </Router>
+      </UserContext.Provider>
     </div>
   );
 }
