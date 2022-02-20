@@ -9,22 +9,24 @@ export interface PostType {
 }
 
 export interface CommentType {
+  _id: string;
   usernameId: UserForPost;
   content: string;
   createdAt: Date;
 }
 
 interface UserForPost {
+  _id: string;
   username: string;
   role: string;
 }
 
 export interface UserType {
-  _id: string;
+  _id: string | undefined;
   username: string;
   password: string;
   role: string;
-  posts: PostType[];
-  comments: CommentType[];
-  likes: [string];
+  posts: string[];
+  comments: string[];
+  likes: string[];
 }
