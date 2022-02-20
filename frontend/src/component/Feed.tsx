@@ -1,16 +1,26 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Post from './Post';
 import Share from './Share';
-import { PostType } from '../../@types/@types';
+import { PostType, UserType } from '../../@types/@types';
 import { getToken } from '../helpers/tokenHelper';
+import { UserContext } from '../UserContext';
+import { useNavigate } from 'react-router-dom';
 
 function Feed() {
+  const { user, setUser } = useContext(UserContext)!;
+  // Navigate
+  const navigate = useNavigate();
+
   // State
   const [posts, setPosts] = useState<PostType[]>([]);
 
   // Fetch posts
   useEffect(() => {
+    if (!user) {
+      navigate('/login'); // if user is not logged in, redirect to login page
+      return;
+    }
     fetchPosts();
   }, []);
 
@@ -38,7 +48,10 @@ function Feed() {
       const { data } = await axios.get(
         `${process.env.REACT_APP_SERVER_URI}/api/post/${post.data._id}`
       );
-      setPosts([data, ...posts]); // add new post to the top of the list
+      if (data && user) {
+        setUser({ ...user, posts: [data._id, ...user.posts] } as UserType);
+        setPosts([data, ...posts]); // add new post to the top of the list
+      }
     } catch (error) {
       console.log(error.response.data.error);
     }
@@ -87,25 +100,47 @@ function Feed() {
     }
   };
 
-  const handleLike = async (postId: string) => {
+  const handleLike = async (
+    postId: string,
+    likes: number,
+    type: 'like' | 'unlike'
+  ) => {
     try {
       await axios.put(
         `${process.env.REACT_APP_SERVER_URI}/api/post/like`,
-        { postId },
+        { postId, likes, type },
         {
           headers: {
             authorization: getToken()!,
           },
         }
       );
-      setPosts((prevPost) => {
-        return prevPost.map((post) => {
-          if (post._id === postId) {
-            post.likes = post.likes + 1;
-          }
-          return post;
-        });
-      });
+      if (user) {
+        if (type === 'like') {
+          setUser({ ...user, likes: [...user.likes, postId] } as UserType); // add postId to user's likes
+          setPosts((prevPost) => {
+            return prevPost.map((post) => {
+              if (post._id === postId) {
+                post.likes = likes;
+              }
+              return post;
+            });
+          });
+        } else {
+          setUser({
+            ...user,
+            likes: user.likes.filter((id) => id !== postId), // remove postId from user's likes
+          } as UserType);
+          setPosts((prevPost) => {
+            return prevPost.map((post) => {
+              if (post._id === postId) {
+                post.likes = likes;
+              }
+              return post;
+            });
+          });
+        }
+      }
     } catch (error) {
       console.log(error.response.data.error);
     }
