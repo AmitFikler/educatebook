@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Martel:wght@200&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Martel:wght@200&display=swap');
 * {
-  font-family: 'Martel', serif;
+  font-family: 'Martel', 'M PLUS Rounded 1c', serif;
 }
 
 body {
