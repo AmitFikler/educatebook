@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 import { UserType } from '../@types/@types';
+import Chat from './component/Chat';
 import HomePage from './component/HomePage';
 import LoginPage from './component/LoginPage';
 import SignUpPage from './component/SignUpPage';
@@ -25,7 +26,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/chat" element={<ComingSoon />} />
+            <Route path="/chat" element={<Chat />} />
             <Route path="/profile" element={<ComingSoon />} />
           </Routes>
         </Router>
