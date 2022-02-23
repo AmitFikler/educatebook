@@ -31,4 +31,18 @@ const addNewUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { getAllUsers, addNewUser };
+const userFromToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { decodedToken } = req;
+    const user = await User.findById(decodedToken!.id);
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { getAllUsers, addNewUser, userFromToken };
