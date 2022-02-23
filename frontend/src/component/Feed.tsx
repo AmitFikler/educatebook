@@ -4,23 +4,16 @@ import Post from './Post';
 import Share from './Share';
 import { PostType, UserType } from '../../@types/@types';
 import { getToken } from '../helpers/tokenHelper';
-import { UserContext } from '../UserContext';
-import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../contexts/User/UserContext';
 
 function Feed() {
   const { user, setUser } = useContext(UserContext)!;
-  // Navigate
-  const navigate = useNavigate();
 
   // State
   const [posts, setPosts] = useState<PostType[]>([]);
 
   // Fetch posts
   useEffect(() => {
-    if (!user) {
-      navigate('/login'); // if user is not logged in, redirect to login page
-      return;
-    }
     fetchPosts();
   }, []);
 
