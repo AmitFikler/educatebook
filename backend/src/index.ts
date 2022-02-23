@@ -8,6 +8,7 @@ import errorHandler from './utils/middleware/errorHandlerMiddleware';
 import config from './utils/config';
 
 import apiRouter from './routers/api';
+import { saveMessage } from './services/socketHelper';
 
 const MONGO_URI =
   process.env.NODE_ENV === 'test'
@@ -35,11 +36,9 @@ if (MONGO_URI && PORT) {
 }
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.emit('message', {
-    name: 'Admin',
-    message: 'Welcome to the chat app',
-    room: 'lobby',
+  socket.on('message', async ({ message, room, username }) => {
+    const newMessage = await saveMessage(message, username, room);
+    io.emit('replayMessage', newMessage);
   });
 });
 
