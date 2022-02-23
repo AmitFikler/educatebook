@@ -5,13 +5,10 @@ import Chat from './component/Chat';
 import HomePage from './component/HomePage';
 import LoginPage from './component/LoginPage';
 import SignUpPage from './component/SignUpPage';
-import { UserContext } from './UserContext';
+import { UserContext } from './contexts/User/UserContext';
+import UserProvider from './contexts/User/UserProvider';
 
 function App() {
-  const [user, setUser] = useState<UserType | null>(null);
-
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
-
   const ComingSoon = () => (
     <div>
       <h1>Coming Soon</h1>
@@ -20,8 +17,8 @@ function App() {
   );
   return (
     <div className="App">
-      <UserContext.Provider value={value}>
-        <Router>
+      <Router>
+        <UserProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -32,8 +29,8 @@ function App() {
             </Route>
             <Route path="/profile" element={<ComingSoon />} />
           </Routes>
-        </Router>
-      </UserContext.Provider>
+        </UserProvider>
+      </Router>
     </div>
   );
 }
