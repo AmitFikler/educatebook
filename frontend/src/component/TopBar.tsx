@@ -1,16 +1,12 @@
-import { Search } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 function TopBar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">EducatBook</span>
-      </div>
-      <div className="topbarRight">
-        <div className="searchbar">
-          <Search />
-          <input placeholder="Search for a post" className="searchInput" />
-        </div>
+        <Link to="/" className="logo">
+          EducatBook
+        </Link>
       </div>
     </div>
   );
