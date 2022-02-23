@@ -1,7 +1,7 @@
 import { Avatar, Paper } from '@mui/material';
 import { useContext } from 'react';
 import { CommentType } from '../../@types/@types';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../contexts/User/UserContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function Comment({ comment }: { comment: CommentType }) {

@@ -11,7 +11,7 @@ import ForumIcon from '@mui/icons-material/Forum';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import { removeToken } from '../helpers/tokenHelper';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../contexts/User/UserContext';
 import { useContext } from 'react';
 function SideBar() {
   const { setUser } = useContext(UserContext)!;

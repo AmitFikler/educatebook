@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { io, Socket } from 'socket.io-client';
 import '../styles/Chat.css';
 import TopBar from './TopBar';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../contexts/User/UserContext';
 
 function Chat() {
   const [message, setMessage] = useState('');

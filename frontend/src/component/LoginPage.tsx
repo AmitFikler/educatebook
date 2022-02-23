@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import axios from 'axios';
 import { setToken } from '../helpers/tokenHelper';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../contexts/User/UserContext';
 
 function LoginPage() {
   const { user, setUser } = useContext(UserContext)!;

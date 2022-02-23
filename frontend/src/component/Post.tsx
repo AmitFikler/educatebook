@@ -8,7 +8,7 @@ import ShareComment from './ShareComment';
 import { PostType } from '../../@types/@types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import moment from 'moment';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../contexts/User/UserContext';
 
 function Post({
   post,
