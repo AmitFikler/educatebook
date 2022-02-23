@@ -30,3 +30,11 @@ export interface UserType {
   comments: string[];
   likes: string[];
 }
+
+export interface Message {
+  message: string;
+  username: string;
+  createdAt: Date;
+  room: string;
+  _id: string;
+}
