@@ -3,18 +3,42 @@
 }
 
 .rooms {
-  height: 100%;
-  margin: auto;
-  width: 100%;
+  text-decoration: none;
+  color: #ffffff;
+  margin: 0.2%;
+}
+.sendMessage {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+.chatHeader {
+  font-weight: 600;
+  transition: all 0.5s ease;
+  text-transform: capitalize;
 }
 
-.chat-container {
-  border: 2px solid black;
-  width: 90%;
-  height: 80%;
-  margin: 2% auto;
+.chatHeader:hover {
+  color: #160e86;
+  letter-spacing: 2px;
+}
+
+.roomsButtons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1%;
+}
+.chatContainer::-webkit-scrollbar {
+  width: 12px;
+}
+.chatContainer::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+.chatContainer::-webkit-scrollbar-thumb {
+  background-color: #4998ff85;
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
