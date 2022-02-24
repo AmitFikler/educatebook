@@ -20,6 +20,7 @@ import axios from 'axios';
 function SignUpPage() {
   /********* STATES *********/
   const [email, setEmail] = useState<string | undefined>();
+  const [fullName, setFullName] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
   const [role, setRole] = useState<'student' | 'tutor' | undefined>();
 
@@ -30,7 +31,8 @@ function SignUpPage() {
   const handleSignUp = async () => {
     try {
       await axios.post(`${process.env.REACT_APP_SERVER_URI}/api/user`, {
-        username: email,
+        fullName,
+        email,
         password,
         role,
       });
@@ -41,17 +43,27 @@ function SignUpPage() {
   };
   return (
     <Grid>
-      <Paper className="signUpPaper" elevation={20}>
-        <Grid>
+      <Paper className="signUpPaper" elevation={10}>
+        <Grid className="signUpHeader">
           {/* // TODO align center */}
           <Avatar style={{ backgroundColor: '#368bff' }}>
             <AddCircleIcon />
           </Avatar>
-          <h2 className="headerSignUp">Sign up</h2>
+          <h2>Sign up</h2>
         </Grid>
         <Typography variant="caption">
           Please fill this form to create an account
         </Typography>
+        <TextField
+          label="Full Name"
+          variant="standard"
+          type="text"
+          placeholder="Enter your full name"
+          onChange={(e) => setFullName(e.target.value)}
+          fullWidth
+          style={{ margin: '8px 0' }}
+          required
+        />
         <TextField
           label="Email"
           variant="standard"

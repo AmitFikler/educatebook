@@ -1,6 +1,6 @@
 .signUpPaper {
   padding: 30px 20px;
-  width: 500px;
+  width: 30%;
   margin: 20px auto;
   position: fixed;
   top: 45%;
@@ -8,6 +8,17 @@
   transform: translate(-50%, -50%);
 }
 
-.headerSignUp {
-  margin: 0;
+@media only screen and (max-width: 600px) {
+  .signUpPaper {
+    width: 70%;
+  }
+}
+
+.signUpHeader {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-content: center !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
 }

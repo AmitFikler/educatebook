@@ -1,6 +1,6 @@
 .loginPaper {
   padding: 20px;
-  width: 500px;
+  width: 30%;
   margin: 30px auto;
   position: fixed;
   top: 40%;
@@ -10,4 +10,18 @@
 
 .signinBtn {
   margin: 8px 0;
+}
+@media only screen and (max-width: 600px) {
+  .loginPaper {
+    width: 70%;
+  }
+}
+
+.loginHeader {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-content: center !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
 }
