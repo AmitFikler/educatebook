@@ -1,6 +1,6 @@
 import { Avatar, Paper } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import CommentIcon from '@mui/icons-material/Comment';
 import { useContext, useState } from 'react';
 import Comment from './Comment';
@@ -55,12 +55,13 @@ function Post({
           <div className="postFooter">
             <div className="likes">
               {value?.user?.likes.includes(post._id) ? (
-                <ThumbDownIcon
+                <ThumbUpIcon
                   style={{ cursor: 'pointer' }}
                   onClick={() => handleLike(post._id, post.likes - 1, 'unlike')}
+                  color="primary"
                 />
               ) : (
-                <ThumbUpIcon
+                <ThumbUpOutlinedIcon
                   style={{ cursor: 'pointer' }}
                   onClick={() => handleLike(post._id, post.likes + 1, 'like')}
                   color="primary"
