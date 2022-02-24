@@ -34,8 +34,8 @@ function Post({
         <Paper style={{ padding: '10px' }}>
           <div className="postOwner">
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar>{post.usernameId.username[0].toUpperCase()}</Avatar>
-              <p className="postEmail">{post.usernameId.username}</p>
+              <Avatar>{post.usernameId.fullName[0].toUpperCase()}</Avatar>
+              <p className="postEmail">{post.usernameId.fullName}</p>
             </span>
             <span style={{ display: 'flex', alignItems: 'center' }}>
               <h5>{post.usernameId.role}</h5>

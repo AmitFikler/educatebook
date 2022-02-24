@@ -17,11 +17,12 @@ const getAllUsers = async (
 
 const addNewUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { username, password, role } = req.body; // get username, password and role from body
+    const { fullName, email, password, role } = req.body; // get username, password and role from body
     const hashPassword = await bcryptService.hashPassword(password.toString()); // hash password
     const newUser = await User.create({
       // create new user
-      username,
+      fullName,
+      email,
       password: hashPassword,
       role,
     });

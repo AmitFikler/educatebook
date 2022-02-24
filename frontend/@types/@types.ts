@@ -17,13 +17,14 @@ export interface CommentType {
 
 interface UserForPost {
   _id: string;
-  username: string;
+  fullName: string;
   role: string;
 }
 
 export interface UserType {
   _id: string | undefined;
-  username: string;
+  fullName: string;
+  email: string;
   password: string;
   role: string;
   posts: string[];

@@ -13,7 +13,7 @@ const tokenExtractor = (authorization: string | undefined) => {
   }
 };
 
-const tokenSign = (userForToken: { username: string; id: string }) => {
+const tokenSign = (userForToken: { email: string; id: string }) => {
   const token = jwt.sign(userForToken, config.secret!, {
     expiresIn: '7d',
   });

@@ -23,6 +23,7 @@ function SendMessageForm({
       />
       <Button
         type="submit"
+        disabled={message.length === 0}
         className="sendMessageBtn"
         onClick={handleClick}
         variant="contained"

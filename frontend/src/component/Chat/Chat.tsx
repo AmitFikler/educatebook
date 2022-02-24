@@ -51,7 +51,7 @@ function Chat() {
     socketRef.current!.emit('message', {
       message,
       room: roomParam,
-      username: user?.username,
+      username: user?.fullName,
     });
     setMessage('');
   };

@@ -6,6 +6,7 @@ import moment from 'moment';
 
 function MessageGroup({ chat }: { chat: Message[] }) {
   const { user } = useContext(UserContext)!;
+  console.log(chat);
   const messageEl = useRef<HTMLUListElement | null>(null);
 
   useEffect(() => {
@@ -27,16 +28,15 @@ function MessageGroup({ chat }: { chat: Message[] }) {
             <li
               key={message._id}
               className={`msg ${
-                message.username === user!.username ? 'userMsg' : 'diffMsg'
+                message.username === user!.fullName ? 'userMsg' : 'diffMsg'
               }`}
             >
               <div>
-                <Avatar>A</Avatar>
                 <h3> {message.username} </h3>
                 <ListItemText primary={`${message.message}`} />
                 <p
                   className={
-                    message.username === user!.username ? 'myTime' : 'yourTime'
+                    message.username === user!.fullName ? 'myTime' : 'yourTime'
                   }
                 >
                   {moment(message.createdAt).format('DD/MM/YY, hh:mm:ss a')}
