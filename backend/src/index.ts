@@ -20,7 +20,7 @@ export const app = express();
 const httpServer = createServer(app);
 export const io = new Server(httpServer, {
   cors: {
-    origin: '*',
+    origin: 'http://localhost:3000',
   },
 }); // socket.io
 
@@ -36,9 +36,15 @@ if (MONGO_URI && PORT) {
 }
 
 io.on('connection', (socket) => {
+  socket.on('join', (room) => {
+    socket.join(room);
+  });
   socket.on('message', async ({ message, room, username }) => {
     const newMessage = await saveMessage(message, username, room);
-    io.emit('replayMessage', newMessage);
+    io.in(room).emit('replayMessage', newMessage);
+  });
+  socket.on('leaveRoom', async (room) => {
+    socket.leave(room);
   });
 });
 
