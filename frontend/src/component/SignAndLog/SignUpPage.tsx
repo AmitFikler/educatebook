@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import '../styles/signUpPage.css';
+import '../../styles/signUpPage.css';
 import { useState } from 'react';
 import axios from 'axios';
 

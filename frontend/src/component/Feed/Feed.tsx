@@ -2,9 +2,9 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import Post from './Post';
 import Share from './Share';
-import { PostType, UserType } from '../../@types/@types';
-import { getToken } from '../helpers/tokenHelper';
-import { UserContext } from '../contexts/User/UserContext';
+import { PostType, UserType } from '../../../@types/@types';
+import { getToken } from '../../helpers/tokenHelper';
+import { UserContext } from '../../contexts/User/UserContext';
 
 function Feed() {
   const { user, setUser } = useContext(UserContext)!;

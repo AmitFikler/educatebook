@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
-import Chat from './component/Chat';
-import HomePage from './component/HomePage';
-import LoginPage from './component/LoginPage';
-import SignUpPage from './component/SignUpPage';
+import Chat from './component/Chat/Chat';
+import HomePage from './component/Feed/HomePage';
+import LoginPage from './component/SignAndLog/LoginPage';
+import SignUpPage from './component/SignAndLog/SignUpPage';
 import UserProvider from './contexts/User/UserProvider';
 
 function App() {

@@ -1,6 +1,6 @@
-import SideBarComp from './SideBar';
-import '../styles/homepage.css';
-import TopBar from './TopBar';
+import SideBarComp from '../Bars/SideBar';
+import '../../styles/homepage.css';
+import TopBar from '../Bars/TopBar';
 import Feed from './Feed';
 function HomePage() {
   return (

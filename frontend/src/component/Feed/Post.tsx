@@ -5,10 +5,10 @@ import CommentIcon from '@mui/icons-material/Comment';
 import { useContext, useState } from 'react';
 import Comment from './Comment';
 import ShareComment from './ShareComment';
-import { PostType } from '../../@types/@types';
+import { PostType } from '../../../@types/@types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import moment from 'moment';
-import { UserContext } from '../contexts/User/UserContext';
+import { UserContext } from '../../contexts/User/UserContext';
 
 function Post({
   post,

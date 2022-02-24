@@ -1,14 +1,14 @@
 import { Avatar, Button, Grid, Paper, TextField } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import '../styles/loginPage.css';
+import '../../styles/loginPage.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import axios from 'axios';
-import { setToken } from '../helpers/tokenHelper';
-import { UserContext } from '../contexts/User/UserContext';
+import { setToken } from '../../helpers/tokenHelper';
+import { UserContext } from '../../contexts/User/UserContext';
 
 function LoginPage() {
-  const { user, setUser } = useContext(UserContext)!;
+  const { setUser } = useContext(UserContext)!;
 
   /********* STATES *********/
   const [email, setEmail] = useState<string | undefined>();

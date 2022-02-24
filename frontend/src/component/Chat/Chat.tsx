@@ -1,17 +1,19 @@
 import axios from 'axios';
-import { Message } from '../../@types/@types';
+import { Message } from '../../../@types/@types';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { io, Socket } from 'socket.io-client';
-import '../styles/Chat.css';
-import TopBar from './TopBar';
-import { UserContext } from '../contexts/User/UserContext';
+import '../../styles/Chat.css';
+import TopBar from '../Bars/TopBar';
+import { UserContext } from '../../contexts/User/UserContext';
 import { Button } from '@mui/material';
 import ChatContainer from './ChatContainer';
 
 function Chat() {
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState<Message[]>([]);
+  const messageEl = useRef<HTMLUListElement | null>(null);
+
   const roomParam = useParams().room;
   const { user } = useContext(UserContext)!;
   const rooms = [
@@ -23,7 +25,6 @@ function Chat() {
     'physics',
     'chemistry',
   ];
-  console.log(chat);
   const socketRef = useRef<Socket>(); // useRef is a hook that lets you store a ref to a DOM element or object that has not yet been rendered.
   useEffect(() => {
     fetchMessages(roomParam!).then((messages) => {
@@ -61,7 +62,7 @@ function Chat() {
   return (
     <div>
       <TopBar />
-      {!roomParam && <h2>Select a room to chat</h2>}
+      {!roomParam && <h1 id="selectRoom">Select a room to chat:</h1>}
       <div className="roomsButtons">
         <>
           {rooms.map((room) => (
