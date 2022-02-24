@@ -1,7 +1,3 @@
-.selected {
-  background-color: brown;
-}
-
 .rooms {
   text-decoration: none;
   color: #ffffff;
@@ -9,7 +5,7 @@
 }
 .sendMessage {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: stretch;
   justify-content: flex-end;
 }
@@ -30,6 +26,13 @@
   flex-wrap: wrap;
   margin: 1%;
 }
+
+.chatContainer {
+  height: 53vh !important;
+  overflow-y: auto !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
 .chatContainer::-webkit-scrollbar {
   width: 12px;
 }
@@ -41,4 +44,61 @@
   background-color: #4998ff85;
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+#selectRoom {
+  text-align: center;
+}
+
+#chat {
+  padding: 0px !important;
+  height: 100% !important;
+}
+
+.typeMessage {
+  width: 85% !important;
+}
+
+.sendMessageBtn {
+  width: 15% !important;
+}
+
+.msg {
+  word-break: break-all !important;
+  padding: 0.75em !important;
+  color: #fff !important;
+  line-height: 1% !important;
+  width: 40% !important;
+  display: block !important;
+  text-align: left !important;
+  border-radius: 5px !important;
+  margin-top: 2% !important;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px !important;
+}
+
+.userMsg {
+  align-self: flex-end !important;
+  text-align: right !important;
+  background-color: rgb(0, 128, 255) !important;
+}
+
+.diffMsg {
+  text-align: left !important;
+  background-color: rgb(30, 113, 196) !important;
+}
+
+.messages {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 99% !important;
+}
+
+.myTime {
+  font-size: small;
+  text-align: left;
+}
+
+.yourTime {
+  font-size: small;
+  text-align: right;
 }
