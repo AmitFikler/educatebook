@@ -1,11 +1,8 @@
-import { useMemo, useState } from 'react';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
-import { UserType } from '../@types/@types';
 import Chat from './component/Chat';
 import HomePage from './component/HomePage';
 import LoginPage from './component/LoginPage';
 import SignUpPage from './component/SignUpPage';
-import { UserContext } from './contexts/User/UserContext';
 import UserProvider from './contexts/User/UserProvider';
 
 function App() {
