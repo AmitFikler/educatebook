@@ -6,6 +6,8 @@ import { io, Socket } from 'socket.io-client';
 import '../styles/Chat.css';
 import TopBar from './TopBar';
 import { UserContext } from '../contexts/User/UserContext';
+import { Button } from '@mui/material';
+import ChatContainer from './ChatContainer';
 
 function Chat() {
   const [message, setMessage] = useState('');
@@ -36,14 +38,15 @@ function Chat() {
   }, []);
 
   const fetchMessages = async (room: string) => {
+    socketRef.current?.emit('join', room);
     const response = await axios.get(
       `http://localhost:3003/api/message/${room}`
     );
     return response.data;
   };
 
-  const handleClick = () => {
-    console.log(message, roomParam, user?.username);
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     socketRef.current!.emit('message', {
       message,
       room: roomParam,
@@ -51,46 +54,46 @@ function Chat() {
     });
     setMessage('');
   };
+
+  const leaveRoom = () => {
+    socketRef.current!.emit('leaveRoom', roomParam);
+  };
   return (
     <div>
       <TopBar />
-      <div className="chat-container">
-        <nav className="rooms">
+      {!roomParam && <h2>Select a room to chat</h2>}
+      <div className="roomsButtons">
+        <>
           {rooms.map((room) => (
             <Link
+              className="rooms"
+              to={`/chat/${room}`}
               onClick={() => {
+                leaveRoom();
                 fetchMessages(room).then((messages) => {
                   setChat(messages);
                 });
               }}
-              to={`/chat/${room}`}
-              key={room}
-              className={roomParam === room ? 'selected' : ''}
             >
-              {room}
+              <Button
+                style={{ fontSize: '17px' }}
+                variant={room === roomParam ? 'contained' : 'outlined'}
+              >
+                {room}
+              </Button>
             </Link>
           ))}
-        </nav>
-        <div className="chat-box">
-          <div className="chat-messages">
-            {chat.map((message) => (
-              <div className="message" key={message._id}>
-                <div className="message-text">{message.message}</div>
-              </div>
-            ))}
-            <div className="chatInput">
-              <input
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Type a message"
-              />
-              <button onClick={handleClick} disabled={message.length === 0}>
-                Send
-              </button>
-            </div>
-          </div>
-        </div>
+        </>
       </div>
+      {roomParam && (
+        <ChatContainer
+          roomParam={roomParam}
+          chat={chat}
+          handleClick={handleClick}
+          message={message}
+          setMessage={setMessage}
+        />
+      )}
     </div>
   );
 }
