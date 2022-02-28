@@ -3,6 +3,7 @@ export interface PostType {
   title: string;
   content: string;
   likes: number;
+  picture: string;
   comments: CommentType[];
   createdAt: Date;
   usernameId: UserForPost;
