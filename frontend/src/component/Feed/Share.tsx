@@ -1,4 +1,6 @@
 import { Button, Paper, TextField } from '@mui/material';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+
 import { useState } from 'react';
 
 interface props {
@@ -7,6 +9,22 @@ interface props {
 function Share({ shareNewPost }: props) {
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [content, setContent] = useState<string | undefined>(undefined);
+  const [picture, setPicture] = useState<string | ArrayBuffer | null>(null);
+
+  const imageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const file = event.target.files![0];
+      const reader = new FileReader();
+      if (file) {
+        reader.onload = () => {
+          setPicture(reader.result);
+        };
+      }
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="share">
@@ -28,16 +46,32 @@ function Share({ shareNewPost }: props) {
             variant="filled"
             style={{ width: '100%' }}
           />
-          <Button
-            onClick={() =>
-              title && content ? shareNewPost(title, content) : null
-            }
-            style={{ marginTop: '4px' }}
-            variant="contained"
-            color="success"
-          >
-            Submit
-          </Button>
+          <div className="share-buttons">
+            <Button
+              startIcon={<AddPhotoAlternateIcon />}
+              variant="contained"
+              component="label"
+            >
+              Image
+              <input
+                type="file"
+                hidden
+                name="img"
+                accept="image/*"
+                onChange={imageHandler}
+              />
+            </Button>
+            <Button
+              onClick={() =>
+                title && content ? shareNewPost(title, content) : null
+              }
+              style={{ marginTop: '4px' }}
+              variant="contained"
+              color="success"
+            >
+              Submit
+            </Button>
+          </div>
         </Paper>
       </div>
     </div>
