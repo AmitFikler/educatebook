@@ -4,6 +4,7 @@ export interface User {
   fullName: string;
   email: string;
   password: string;
+  picture: string;
   role: Role;
   posts: Types.ObjectId[];
   comments: Types.ObjectId[];

@@ -17,6 +17,9 @@ const UserSchema = new mongoose.Schema<User>(
         validator: (e: string) => isEmail(e),
       },
     },
+    picture: {
+      type: String,
+    },
     password: {
       type: String,
       required: true,
