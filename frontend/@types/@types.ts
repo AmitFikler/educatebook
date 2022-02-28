@@ -19,6 +19,7 @@ interface UserForPost {
   _id: string;
   fullName: string;
   role: string;
+  picture: string;
 }
 
 export interface UserType {
@@ -30,6 +31,7 @@ export interface UserType {
   posts: string[];
   comments: string[];
   likes: string[];
+  picture: string;
 }
 
 export interface Message {

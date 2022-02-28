@@ -49,8 +49,7 @@ io.on('connection', (socket) => {
 });
 
 app.use(cors()); //cors middleware
-app.use(express.json()); //json middleware
-
+app.use(express.json({ limit: '50mb' })); //json middleware
 app.use('/api', apiRouter);
 
 app.use(errorHandler); //error handler middleware

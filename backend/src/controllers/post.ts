@@ -46,13 +46,13 @@ const getAllPosts = async (
     const posts = await Post.find({})
       .populate({
         path: 'usernameId',
-        select: ['fullName', 'role'],
+        select: ['fullName', 'role', 'picture'],
       })
       .populate({
         path: 'comments',
         populate: {
           path: 'usernameId',
-          select: ['fullName', 'role'],
+          select: ['fullName', 'role', 'picture'],
         },
       }); // get all posts
     res.json(posts);
@@ -67,13 +67,13 @@ const getOnePost = async (req: Request, res: Response, next: NextFunction) => {
     const post = await Post.findById(id)
       .populate({
         path: 'usernameId',
-        select: ['fullName', 'role'],
+        select: ['fullName', 'role', 'picture'],
       })
       .populate({
         path: 'comments',
         populate: {
           path: 'usernameId',
-          select: ['fullName', 'role'],
+          select: ['fullName', 'role', 'picture'],
         },
       }); // get all posts
     res.json(post);
