@@ -6,6 +6,7 @@ import { useContext, useState } from 'react';
 import axios from 'axios';
 import { setToken } from '../../helpers/tokenHelper';
 import { UserContext } from '../../contexts/User/UserContext';
+import Logo from '../Logo';
 
 function LoginPage() {
   const { setUser } = useContext(UserContext)!;
@@ -23,7 +24,7 @@ function LoginPage() {
       const { data } = await axios.post(
         `${process.env.REACT_APP_SERVER_URI}/api/login`,
         {
-          username: email,
+          email,
           password,
         }
       );

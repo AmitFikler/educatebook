@@ -39,7 +39,7 @@ function MessageGroup({ chat }: { chat: Message[] }) {
                     message.username === user!.fullName ? 'myTime' : 'yourTime'
                   }
                 >
-                  {moment(message.createdAt).format('DD/MM/YY, hh:mm:ss a')}
+                  {moment(message.createdAt).format('DD/MM/YY, hh:mm:ss A')}
                 </p>
               </div>
             </li>
