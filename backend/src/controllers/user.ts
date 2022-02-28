@@ -21,8 +21,10 @@ const addNewUser = async (req: Request, res: Response, next: NextFunction) => {
     const { fullName, email, password, role, picture } = req.body; // get username, password and role from body
 
     const hashPassword = await bcryptService.hashPassword(password.toString()); // hash password
-    const uploadPicture = await uploadPhoto(picture); // upload picture to cloudinary
-    console.log(uploadPicture);
+    let uploadPicture;
+    if (picture) {
+      uploadPicture = await uploadPhoto(picture); // upload picture to cloudinary
+    }
     const newUser = await User.create({
       // create new user
       fullName,
