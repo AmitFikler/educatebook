@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../models/User';
 import bcryptService from '../utils/helpers/bcryptService';
+import uploadPhoto from '../utils/helpers/cloudinaryService';
 
 const getAllUsers = async (
   _req: Request,
@@ -17,12 +18,16 @@ const getAllUsers = async (
 
 const addNewUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { fullName, email, password, role } = req.body; // get username, password and role from body
+    const { fullName, email, password, role, picture } = req.body; // get username, password and role from body
+
     const hashPassword = await bcryptService.hashPassword(password.toString()); // hash password
+    const uploadPicture = await uploadPhoto(picture); // upload picture to cloudinary
+    console.log(uploadPicture);
     const newUser = await User.create({
       // create new user
       fullName,
       email,
+      picture: uploadPicture ? uploadPicture.url : null,
       password: hashPassword,
       role,
     });
