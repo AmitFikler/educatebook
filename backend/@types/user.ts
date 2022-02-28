@@ -1,7 +1,8 @@
 import { Types } from 'mongoose';
 
 export interface User {
-  username: string;
+  fullName: string;
+  email: string;
   password: string;
   role: Role;
   posts: Types.ObjectId[];

@@ -4,7 +4,12 @@ import { User } from '../../@types/user';
 
 const UserSchema = new mongoose.Schema<User>(
   {
-    username: {
+    fullName: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    email: {
       type: String,
       required: true,
       unique: true,

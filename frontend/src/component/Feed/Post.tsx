@@ -1,14 +1,14 @@
 import { Avatar, Paper } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import CommentIcon from '@mui/icons-material/Comment';
 import { useContext, useState } from 'react';
 import Comment from './Comment';
 import ShareComment from './ShareComment';
-import { PostType } from '../../@types/@types';
+import { PostType } from '../../../@types/@types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import moment from 'moment';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../../contexts/User/UserContext';
 
 function Post({
   post,
@@ -34,8 +34,8 @@ function Post({
         <Paper style={{ padding: '10px' }}>
           <div className="postOwner">
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar>{post.usernameId.username[0].toUpperCase()}</Avatar>
-              <p className="postEmail">{post.usernameId.username}</p>
+              <Avatar>{post.usernameId.fullName[0].toUpperCase()}</Avatar>
+              <p className="postEmail">{post.usernameId.fullName}</p>
             </span>
             <span style={{ display: 'flex', alignItems: 'center' }}>
               <h5>{post.usernameId.role}</h5>
@@ -55,12 +55,13 @@ function Post({
           <div className="postFooter">
             <div className="likes">
               {value?.user?.likes.includes(post._id) ? (
-                <ThumbDownIcon
+                <ThumbUpIcon
                   style={{ cursor: 'pointer' }}
                   onClick={() => handleLike(post._id, post.likes - 1, 'unlike')}
+                  color="primary"
                 />
               ) : (
-                <ThumbUpIcon
+                <ThumbUpOutlinedIcon
                   style={{ cursor: 'pointer' }}
                   onClick={() => handleLike(post._id, post.likes + 1, 'like')}
                   color="primary"

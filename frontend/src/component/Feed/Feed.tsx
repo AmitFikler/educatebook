@@ -2,25 +2,19 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import Post from './Post';
 import Share from './Share';
-import { PostType, UserType } from '../../@types/@types';
-import { getToken } from '../helpers/tokenHelper';
-import { UserContext } from '../UserContext';
-import { useNavigate } from 'react-router-dom';
+import { PostType, UserType } from '../../../@types/@types';
+import { getToken } from '../../helpers/tokenHelper';
+import { UserContext } from '../../contexts/User/UserContext';
+import { toast } from 'react-toastify';
 
 function Feed() {
   const { user, setUser } = useContext(UserContext)!;
-  // Navigate
-  const navigate = useNavigate();
 
   // State
   const [posts, setPosts] = useState<PostType[]>([]);
 
   // Fetch posts
   useEffect(() => {
-    if (!user) {
-      navigate('/login'); // if user is not logged in, redirect to login page
-      return;
-    }
     fetchPosts();
   }, []);
 
@@ -51,9 +45,14 @@ function Feed() {
       if (data && user) {
         setUser({ ...user, posts: [data._id, ...user.posts] } as UserType);
         setPosts([data, ...posts]); // add new post to the top of the list
+        toast('Post shared successfully', {
+          type: 'success',
+        });
       }
     } catch (error) {
-      console.log(error.response.data.error);
+      toast(error.response.data.error, {
+        type: 'error',
+      });
     }
   };
 
@@ -80,7 +79,9 @@ function Feed() {
         });
       });
     } catch (error) {
-      console.log(error.response.data.error);
+      toast(error.response.data.error, {
+        type: 'error',
+      });
     }
   };
 
@@ -95,8 +96,13 @@ function Feed() {
         }
       );
       setPosts((prevPost) => prevPost.filter((post) => post._id !== postId));
+      toast('Post deleted successfully', {
+        type: 'success',
+      });
     } catch (error) {
-      console.log(error.response.data.error);
+      toast(error.response.data.error, {
+        type: 'error',
+      });
     }
   };
 
@@ -142,7 +148,9 @@ function Feed() {
         }
       }
     } catch (error) {
-      console.log(error.response.data.error);
+      toast(error.response.data.error, {
+        type: 'error',
+      });
     }
   };
 

@@ -1,14 +1,15 @@
 import { Avatar, Button, Grid, Paper, TextField } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import '../styles/loginPage.css';
+import '../../styles/loginPage.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import axios from 'axios';
-import { setToken } from '../helpers/tokenHelper';
-import { UserContext } from '../UserContext';
+import { setToken } from '../../helpers/tokenHelper';
+import { UserContext } from '../../contexts/User/UserContext';
+import { toast } from 'react-toastify';
 
 function LoginPage() {
-  const { user, setUser } = useContext(UserContext)!;
+  const { setUser } = useContext(UserContext)!;
 
   /********* STATES *********/
   const [email, setEmail] = useState<string | undefined>();
@@ -23,23 +24,27 @@ function LoginPage() {
       const { data } = await axios.post(
         `${process.env.REACT_APP_SERVER_URI}/api/login`,
         {
-          username: email,
+          email,
           password,
         }
       );
       // setUser(data.user);
       setToken(data.token);
       setUser(data.user);
+      toast('Sign in successfully', {
+        type: 'success',
+      });
       navigate('/');
     } catch (error) {
-      console.log(error.response.data.error); //TODO-tosetify
+      toast(error.response.data.error, {
+        type: 'error',
+      });
     }
   };
   return (
     <Grid>
       <Paper className="loginPaper" elevation={10}>
-        <Grid>
-          {/* TODO align="center" */}
+        <Grid className="loginHeader">
           <Avatar style={{ backgroundColor: '#368bff' }}>
             <LockOutlinedIcon />
           </Avatar>

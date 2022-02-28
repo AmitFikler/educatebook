@@ -1,7 +1,7 @@
 import { Avatar, Paper } from '@mui/material';
 import { useContext } from 'react';
-import { CommentType } from '../../@types/@types';
-import { UserContext } from '../UserContext';
+import { CommentType } from '../../../@types/@types';
+import { UserContext } from '../../contexts/User/UserContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function Comment({ comment }: { comment: CommentType }) {
@@ -19,8 +19,8 @@ function Comment({ comment }: { comment: CommentType }) {
         >
           <div className="postOwner">
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar>{comment.usernameId.username[0].toUpperCase()}</Avatar>
-              <p className="postEmail">{comment.usernameId.username}</p>
+              <Avatar>{comment.usernameId.fullName[0].toUpperCase()}</Avatar>
+              <p className="postEmail">{comment.usernameId.fullName}</p>
               <h5> | {comment.usernameId.role}</h5>
             </span>
             <span style={{ display: 'flex', alignItems: 'center' }}>

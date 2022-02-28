@@ -4,12 +4,12 @@ import bcryptService from '../utils/helpers/bcryptService';
 import { tokenSign } from '../utils/helpers/jwtService';
 
 const handleLoginService = async (
-  username: string,
+  email: string,
   password: string,
   res: Response
 ) => {
   try {
-    const user = await User.findOne({ username }); // find user by username
+    const user = await User.findOne({ email }); // find user by username
     if (user) {
       // if user exists
       const currentPassword = await bcryptService.comperePassword(
@@ -19,7 +19,7 @@ const handleLoginService = async (
       if (currentPassword) {
         // if password is correct
         const userForToken = {
-          username,
+          email,
           id: user._id,
         };
         const token = tokenSign(userForToken); // create token

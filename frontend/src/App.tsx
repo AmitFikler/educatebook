@@ -1,16 +1,14 @@
-import { useMemo, useState } from 'react';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
-import { UserType } from '../@types/@types';
-import HomePage from './component/HomePage';
-import LoginPage from './component/LoginPage';
-import SignUpPage from './component/SignUpPage';
-import { UserContext } from './UserContext';
+import Chat from './component/Chat/Chat';
+import HomePage from './component/Feed/HomePage';
+import LoginPage from './component/SignAndLog/LoginPage';
+import SignUpPage from './component/SignAndLog/SignUpPage';
+import UserProvider from './contexts/User/UserProvider';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [user, setUser] = useState<UserType | null>(null);
-
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
-
   const ComingSoon = () => (
     <div>
       <h1>Coming Soon</h1>
@@ -19,17 +17,21 @@ function App() {
   );
   return (
     <div className="App">
-      <UserContext.Provider value={value}>
-        <Router>
+      <Router>
+        <UserProvider>
+          <ToastContainer />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/chat" element={<ComingSoon />} />
+            <Route path="chat">
+              <Route path=":room" element={<Chat />} />
+              <Route path="" element={<Chat />} />
+            </Route>
             <Route path="/profile" element={<ComingSoon />} />
           </Routes>
-        </Router>
-      </UserContext.Provider>
+        </UserProvider>
+      </Router>
     </div>
   );
 }
