@@ -5,6 +5,7 @@ import Share from './Share';
 import { PostType, UserType } from '../../../@types/@types';
 import { getToken } from '../../helpers/tokenHelper';
 import { UserContext } from '../../contexts/User/UserContext';
+import { toast } from 'react-toastify';
 
 function Feed() {
   const { user, setUser } = useContext(UserContext)!;
@@ -44,9 +45,14 @@ function Feed() {
       if (data && user) {
         setUser({ ...user, posts: [data._id, ...user.posts] } as UserType);
         setPosts([data, ...posts]); // add new post to the top of the list
+        toast('Post shared successfully', {
+          type: 'success',
+        });
       }
     } catch (error) {
-      console.log(error.response.data.error);
+      toast(error.response.data.error, {
+        type: 'error',
+      });
     }
   };
 
@@ -73,7 +79,9 @@ function Feed() {
         });
       });
     } catch (error) {
-      console.log(error.response.data.error);
+      toast(error.response.data.error, {
+        type: 'error',
+      });
     }
   };
 
@@ -88,8 +96,13 @@ function Feed() {
         }
       );
       setPosts((prevPost) => prevPost.filter((post) => post._id !== postId));
+      toast('Post deleted successfully', {
+        type: 'success',
+      });
     } catch (error) {
-      console.log(error.response.data.error);
+      toast(error.response.data.error, {
+        type: 'error',
+      });
     }
   };
 
@@ -135,7 +148,9 @@ function Feed() {
         }
       }
     } catch (error) {
-      console.log(error.response.data.error);
+      toast(error.response.data.error, {
+        type: 'error',
+      });
     }
   };
 

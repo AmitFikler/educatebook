@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import { removeToken } from '../../helpers/tokenHelper';
 import { UserContext } from '../../contexts/User/UserContext';
 import { useContext } from 'react';
+import { toast } from 'react-toastify';
+
 function SideBar() {
   const { setUser } = useContext(UserContext)!;
   const menuItems = [
@@ -43,6 +45,9 @@ function SideBar() {
     removeToken();
     setUser(null); // remove user from context
     navigate('/login'); // navigate to login page
+    toast('Logout successfully', {
+      type: 'success',
+    });
   };
   return (
     <div className="sidebar-div">

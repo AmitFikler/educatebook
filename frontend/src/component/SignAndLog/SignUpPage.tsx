@@ -16,6 +16,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import '../../styles/signUpPage.css';
 import { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function SignUpPage() {
   /********* STATES *********/
@@ -37,15 +38,19 @@ function SignUpPage() {
         role,
       });
       navigate('/login');
+      toast('Sign up successfully', {
+        type: 'success',
+      });
     } catch (error) {
-      console.log(error.response.data.error); //TODO-tosetify
+      toast(error.response.data.error, {
+        type: 'error',
+      });
     }
   };
   return (
     <Grid>
       <Paper className="signUpPaper" elevation={10}>
         <Grid className="signUpHeader">
-          {/* // TODO align center */}
           <Avatar style={{ backgroundColor: '#368bff' }}>
             <AddCircleIcon />
           </Avatar>

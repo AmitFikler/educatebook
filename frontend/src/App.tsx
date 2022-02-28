@@ -4,6 +4,9 @@ import HomePage from './component/Feed/HomePage';
 import LoginPage from './component/SignAndLog/LoginPage';
 import SignUpPage from './component/SignAndLog/SignUpPage';
 import UserProvider from './contexts/User/UserProvider';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const ComingSoon = () => (
@@ -16,6 +19,7 @@ function App() {
     <div className="App">
       <Router>
         <UserProvider>
+          <ToastContainer />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
