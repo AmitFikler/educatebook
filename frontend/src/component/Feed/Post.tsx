@@ -55,6 +55,13 @@ function Post({
             <h3>{post.title}</h3>
             <p>{moment(post.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
             <p>{post.content}</p>
+            {post.picture && (
+              <img
+                src={`${post.picture}`}
+                alt="post"
+                style={{ width: '30vw', height: 'auto' }}
+              />
+            )}
           </div>
           <div className="postFooter">
             <div className="likes">
