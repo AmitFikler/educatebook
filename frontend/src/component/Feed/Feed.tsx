@@ -25,13 +25,18 @@ function Feed() {
     setPosts(data.reverse()); // reverse to show latest post first
   };
 
-  const shareNewPost = async (title: string, content: string) => {
+  const shareNewPost = async (
+    title: string,
+    content: string,
+    picture: string | ArrayBuffer | null
+  ) => {
     try {
       const post = await axios.post(
         `${process.env.REACT_APP_SERVER_URI}/api/post`,
         {
           title,
           content,
+          picture,
         },
         {
           headers: {
