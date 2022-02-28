@@ -13,7 +13,7 @@ export const saveMessage = async (
     });
     return newMessage;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
