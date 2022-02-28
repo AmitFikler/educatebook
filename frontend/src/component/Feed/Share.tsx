@@ -4,7 +4,11 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useState } from 'react';
 
 interface props {
-  shareNewPost: (title: string, content: string) => void;
+  shareNewPost: (
+    title: string,
+    content: string,
+    picture: string | ArrayBuffer | null
+  ) => void;
 }
 function Share({ shareNewPost }: props) {
   const [title, setTitle] = useState<string | undefined>(undefined);
@@ -61,9 +65,16 @@ function Share({ shareNewPost }: props) {
                 onChange={imageHandler}
               />
             </Button>
+            {picture && (
+              <img
+                src={`${picture}`}
+                alt="post"
+                style={{ width: '30vw', height: 'auto' }}
+              />
+            )}
             <Button
               onClick={() =>
-                title && content ? shareNewPost(title, content) : null
+                title && content ? shareNewPost(title, content, picture) : null
               }
               style={{ marginTop: '4px' }}
               variant="contained"
