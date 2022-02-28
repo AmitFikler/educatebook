@@ -34,7 +34,11 @@ function Post({
         <Paper style={{ padding: '10px' }}>
           <div className="postOwner">
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar>{post.usernameId.fullName[0].toUpperCase()}</Avatar>
+              {post.usernameId.picture ? (
+                <Avatar src={`${post.usernameId.picture}`} />
+              ) : (
+                <Avatar>{post.usernameId.fullName[0].toUpperCase()}</Avatar>
+              )}
               <p className="postEmail">{post.usernameId.fullName}</p>
             </span>
             <span style={{ display: 'flex', alignItems: 'center' }}>
