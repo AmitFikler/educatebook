@@ -10,7 +10,8 @@ const userToken: { token: String } = { token: '' }; // amit@gmail.com token
 const users = [
   {
     _id: '61e58ae42184d73091dcf6bb',
-    username: 'amit@gmail.com',
+    email: 'amit@gmail.com',
+    fullName: 'Amit',
     password: '$2b$10$86cxTndHzXtc8Tx2V/i76eS7Yd3xm51I.0LzDu6kcVlOS0tiRDAXi', //123456
     role: 'student',
     createdAt: '2022-01-17T15:27:32.924Z',
@@ -21,7 +22,8 @@ const users = [
   },
   {
     _id: '61eedb80d67609479e328f9f',
-    username: 'test@gmail.com',
+    email: 'test@gmail.com',
+    fullName: 'Test',
     password: '$2b$10$QowR0IpE0zKP.bVBSLR0UO/jpja7.Z/PbI7T3xlQ15IZfUsWteVIG', //654321
     role: 'tutor',
     posts: ['61eedbf7212687000f4add13'],
@@ -64,7 +66,8 @@ describe('USER TESTING:', () => {
   describe('POST /api/user:', () => {
     it('should create a new user', async () => {
       const response = await api.post('/api/user').send({
-        username: 'testing@gmail.com',
+        email: 'testing@gmail.com',
+        fullName: 'Testing',
         password: 'test123',
         role: 'student',
       });
@@ -95,7 +98,7 @@ describe('LOGIN TESTING', () => {
       const response = await api
         .post('/api/login')
         .send({
-          username: 'amit@gmail.com',
+          email: 'amit@gmail.com',
           password: '123456',
         })
         .expect(202);
@@ -108,7 +111,7 @@ describe('LOGIN TESTING', () => {
       const response = await api
         .post('/api/login')
         .send({
-          username: 'amit@gmail.com',
+          email: 'amit@gmail.com',
           password: 'NOT_PASSWORD',
         })
         .expect(403);
@@ -119,7 +122,7 @@ describe('LOGIN TESTING', () => {
       const response = await api
         .post('/api/login')
         .send({
-          username: 'amitFAIL@gmail.com',
+          email: 'amitFAIL@gmail.com',
           password: '123456',
         })
         .expect(403);
