@@ -17,6 +17,7 @@ import '../../styles/signUpPage.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 function SignUpPage() {
   /********* STATES *********/
@@ -24,6 +25,7 @@ function SignUpPage() {
   const [fullName, setFullName] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
   const [role, setRole] = useState<'student' | 'tutor' | undefined>();
+  const [picture, setPicture] = useState<string | ArrayBuffer | null>(null);
 
   /********* NAVIGATE *********/
   const navigate = useNavigate();
@@ -36,6 +38,7 @@ function SignUpPage() {
         email,
         password,
         role,
+        picture,
       });
       navigate('/login');
       toast('Sign up successfully', {
@@ -47,6 +50,22 @@ function SignUpPage() {
       });
     }
   };
+
+  const imageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const file = event.target.files![0];
+      const reader = new FileReader();
+      if (file) {
+        reader.onload = () => {
+          setPicture(reader.result);
+        };
+      }
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Grid>
       <Paper className="signUpPaper" elevation={10}>
@@ -110,6 +129,30 @@ function SignUpPage() {
           type="password"
           required
         />
+        <div className="upload-img">
+          <Button variant="contained" component="label">
+            <AddPhotoAlternateIcon /> Upload Profile Picture
+            <input
+              type="file"
+              hidden
+              name="img"
+              accept="image/*"
+              onChange={imageHandler}
+            />
+          </Button>
+          {picture && (
+            <img
+              src={`${picture}`}
+              alt="profile"
+              style={{
+                width: '100px',
+                height: '100px',
+                borderRadius: '50%',
+                margin: '8px 0',
+              }}
+            />
+          )}
+        </div>
         <Button
           type="submit"
           color="primary"
