@@ -8,7 +8,7 @@ cloudinary.v2.config({
   secure: true,
 }); // cloudinary config
 
-exports.uploadPhoto = async (file: any) => {
+const uploadPhoto = async (file: any) => {
   try {
     const result = await cloudinary.v2.uploader.upload(file);
     return result;
@@ -16,3 +16,5 @@ exports.uploadPhoto = async (file: any) => {
     throw error;
   }
 };
+
+export default uploadPhoto;
