@@ -1,5 +1,6 @@
 import { Button, Paper, TextField } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import HideImageIcon from '@mui/icons-material/HideImage';
 
 import { useState } from 'react';
 
@@ -30,6 +31,15 @@ function Share({ shareNewPost }: props) {
     }
   };
 
+  const submitHandler = () => {
+    if (title && content) {
+      shareNewPost(title, content, picture);
+    }
+    setTitle('');
+    setContent('');
+    setPicture(null);
+  };
+
   return (
     <div className="share">
       <div className="shareWrapper">
@@ -39,6 +49,7 @@ function Share({ shareNewPost }: props) {
             label="Title"
             variant="filled"
             style={{ width: '100%' }}
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <TextField
@@ -48,34 +59,41 @@ function Share({ shareNewPost }: props) {
             multiline
             rows={4}
             variant="filled"
+            value={content}
             style={{ width: '100%' }}
           />
+          {picture && (
+            <img src={`${picture}`} alt="post" className="postImagePreview" />
+          )}
           <div className="share-buttons">
+            <div>
+              <Button
+                startIcon={<AddPhotoAlternateIcon />}
+                variant="contained"
+                component="label"
+              >
+                Image
+                <input
+                  type="file"
+                  hidden
+                  name="img"
+                  accept="image/*"
+                  onChange={imageHandler}
+                />
+              </Button>
+              {picture && (
+                <Button
+                  variant="contained"
+                  color="error"
+                  startIcon={<HideImageIcon />}
+                  onClick={() => setPicture(null)}
+                >
+                  Remove Image
+                </Button>
+              )}
+            </div>
             <Button
-              startIcon={<AddPhotoAlternateIcon />}
-              variant="contained"
-              component="label"
-            >
-              Image
-              <input
-                type="file"
-                hidden
-                name="img"
-                accept="image/*"
-                onChange={imageHandler}
-              />
-            </Button>
-            {picture && (
-              <img
-                src={`${picture}`}
-                alt="post"
-                style={{ width: '30vw', height: 'auto' }}
-              />
-            )}
-            <Button
-              onClick={() =>
-                title && content ? shareNewPost(title, content, picture) : null
-              }
+              onClick={() => (title && content ? submitHandler() : null)}
               style={{ marginTop: '4px' }}
               variant="contained"
               color="success"
