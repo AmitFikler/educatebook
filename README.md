@@ -88,7 +88,7 @@ On this site you can search for private tutors, tutors will be able to advertise
 - _User can like a post_ 👍
 - _User can delete his own posts_ 🗑️
 
-## Chat
+### Chat
 
 - _Getting all your messages history_ 📅
 - _Dedicated rooms for each subject_ 💬 🗨️
