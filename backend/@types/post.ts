@@ -5,5 +5,6 @@ export interface Post {
   title: string;
   content: string;
   likes: number;
+  picture: string;
   comments: Types.ObjectId[];
 }

@@ -1,3 +1,4 @@
+import { UploadApiResponse } from 'cloudinary';
 import { Request, Response, NextFunction } from 'express';
 import { Post } from '../models/Post';
 import {
@@ -5,13 +6,23 @@ import {
   deletePostService,
   likeAPostService,
 } from '../services/postServices';
+import uploadPhoto from '../utils/helpers/cloudinaryService';
 
 const postAPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const decodedToken = req.decodedToken;
-    const { title, content } = req.body; // get title and content from body
+    const { title, content, picture } = req.body; // get title and content from body
+    let uploadPicture: UploadApiResponse | null = null;
+    if (picture) {
+      uploadPicture = await uploadPhoto(picture); // upload picture to cloudinary
+    }
     if (title && content) {
-      const newPost = await createNewPost(decodedToken!.id, title, content);
+      const newPost = await createNewPost(
+        decodedToken!.id,
+        title,
+        content,
+        uploadPicture ? uploadPicture.url : null
+      );
       res.status(201).json(newPost); // send new post
     } else {
       throw { status: 400, message: 'title or content is missing..' };

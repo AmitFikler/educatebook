@@ -6,12 +6,14 @@ import { PostType, UserType } from '../../../@types/@types';
 import { getToken } from '../../helpers/tokenHelper';
 import { UserContext } from '../../contexts/User/UserContext';
 import { toast } from 'react-toastify';
+import { ReactComponent as Spinner } from '../../images/spinner.svg';
 
 function Feed() {
   const { user, setUser } = useContext(UserContext)!;
 
   // State
   const [posts, setPosts] = useState<PostType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Fetch posts
   useEffect(() => {
@@ -25,13 +27,19 @@ function Feed() {
     setPosts(data.reverse()); // reverse to show latest post first
   };
 
-  const shareNewPost = async (title: string, content: string) => {
+  const shareNewPost = async (
+    title: string,
+    content: string,
+    picture: string | ArrayBuffer | null
+  ) => {
     try {
+      setLoading(true);
       const post = await axios.post(
         `${process.env.REACT_APP_SERVER_URI}/api/post`,
         {
           title,
           content,
+          picture,
         },
         {
           headers: {
@@ -44,12 +52,14 @@ function Feed() {
       );
       if (data && user) {
         setUser({ ...user, posts: [data._id, ...user.posts] } as UserType);
+        setLoading(false);
         setPosts([data, ...posts]); // add new post to the top of the list
         toast('Post shared successfully', {
           type: 'success',
         });
       }
     } catch (error) {
+      setLoading(false);
       toast(error.response.data.error, {
         type: 'error',
       });
@@ -158,6 +168,7 @@ function Feed() {
     <div className="feed">
       <div className="feedWrapper">
         <Share shareNewPost={shareNewPost} />
+        {loading ? <Spinner /> : null}
         {posts.map((post) => (
           <Post
             key={post._id}

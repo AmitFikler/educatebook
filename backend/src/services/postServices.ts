@@ -2,12 +2,18 @@ import { isValidObjectId } from 'mongoose';
 import { Post } from '../models/Post';
 import { User } from '../models/User';
 
-const createNewPost = async (id: string, title: string, content: string) => {
+const createNewPost = async (
+  id: string,
+  title: string,
+  content: string,
+  picture: string | null
+) => {
   const newPost = await Post.create({
     // create new post
     usernameId: id,
     title,
     content,
+    picture,
   });
   await User.findByIdAndUpdate(id, {
     $addToSet: { posts: newPost }, // add new post to user's posts
