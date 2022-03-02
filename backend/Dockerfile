@@ -8,8 +8,10 @@ COPY package-lock.json ./
 
 RUN npm install
 
-COPY ./build ./server
+COPY . .
+
+RUN npm run build-ts
 
 EXPOSE 3003
 
-CMD ["node", "./server/src/index.js"]
+CMD ["node", "./build/src/index.js"]
