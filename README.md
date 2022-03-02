@@ -63,10 +63,6 @@ On this site you can search for private tutors, tutors will be able to advertise
 - _Go to http://localhost:3000 and enjoy!_
 
 ## Docker 🐋
-
-- _Move to backend directory  `cd ./backend`_
-- _Run `tsc`_
-- _Back to root directory `cd ..`_
 - _Run `docker-compose up`_
 
 <!-- - _Docker - Run on root dir `docker build -t chat-app .` ➡ `docker run -dp 4000:4000 chat-app`_
