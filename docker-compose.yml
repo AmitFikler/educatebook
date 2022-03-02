@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  server:
+    build: ./backend
+    container_name: server
+    ports:
+      - "3003:3003"
+  client: 
+    build: ./frontend
+    container_name: client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+     
