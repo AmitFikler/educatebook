@@ -12,6 +12,9 @@ env:
   MONGODB_URL_TEST: ${{ secrets.MONGODB_URL_TEST }}
   SALT_ROUNDS: ${{ secrets.SALT_ROUNDS }}
   SECRET: ${{ secrets.SECRET }}
+  CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
+  API_KEY: ${{ secrets.API_KEY }}
+  API_SECRET: ${{ secrets.API_SECRET }}
 
 jobs:
   Tests:
