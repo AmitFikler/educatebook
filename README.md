@@ -1,4 +1,4 @@
-# Educatbook 📖
+# Educatebook 📖
 
 A social network of tutors and students.  
 On this site you can search for private tutors, tutors will be able to advertise themselves, and can talk live on study topics in the chat rooms
