@@ -5,7 +5,7 @@ function TopBar() {
     <div className="topbarContainer">
       <div className="topbarLeft">
         <Link to="/" className="logo">
-          EducatBook
+          EducateBook
         </Link>
       </div>
     </div>
