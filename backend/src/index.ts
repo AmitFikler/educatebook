@@ -3,6 +3,7 @@ import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import mongoose from 'mongoose';
+import path from 'path';
 
 import errorHandler from './utils/middleware/errorHandlerMiddleware';
 import config from './utils/config';
@@ -51,6 +52,13 @@ io.on('connection', (socket) => {
 app.use(cors()); //cors middleware
 app.use(express.json({ limit: '50mb' })); //json middleware
 app.use('/api', apiRouter);
+
+// Step 1:
+app.use(express.static(path.resolve(__dirname, './frontend/build')));
+// Step 2:
+app.get('*', function (request, response) {
+  response.sendFile(path.resolve(__dirname, './frontend/build', 'index.html'));
+});
 
 app.use(errorHandler); //error handler middleware
 
