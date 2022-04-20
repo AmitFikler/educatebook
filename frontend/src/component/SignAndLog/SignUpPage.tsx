@@ -52,6 +52,7 @@ function SignUpPage() {
       toast(error.response.data.error, {
         type: 'error',
       });
+      setIsLoading(false);
     }
   };
 
