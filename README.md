@@ -50,9 +50,9 @@ On this site you can search for private tutors, tutors will be able to advertise
 
 ## Public use -
 
-#### Link to docker hub- ✨Not yet✨
+#### Link to docker hub- [Docker Hub](https://hub.docker.com/repository/docker/amitfikler/educatebook) 🐋
 
-#### Link to heroku- ✨Not yet✨
+#### Link to heroku- [Heroko](https://educatebook.herokuapp.com/login) ⭐
 
 ## Local use -
 
