@@ -15,3 +15,4 @@ jobs:
           herokuApiKey: ${{ secrets.HEROKU_API_KEY}}
           herokuAppName: ${{ secrets.HEROKU_APP_NAME}}
           useDocker: true
+          dir: backend
