@@ -11,7 +11,6 @@ On this site you can search for private tutors, tutors will be able to advertise
 - _[NodeJs](https://reactjs.org/) - For the backend_
 - _[TypeScript](https://www.typescriptlang.org/) - As a programming language_
 - _[React Router DOM](https://www.npmjs.com/package/react-router-dom) - To create single page app_
-- _[Redux](https://redux.js.org/) - For state management_
 - _[Docker](https://www.docker.com/) - For global use_
 - _[Socket.io](https://socket.io/) - For live connection_
 - _[MongoDB](https://www.mongodb.com/) - As a Database_
