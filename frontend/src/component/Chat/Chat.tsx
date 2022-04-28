@@ -41,7 +41,7 @@ function Chat() {
   const fetchMessages = async (room: string) => {
     socketRef.current?.emit('join', room);
     const response = await axios.get(
-      `http://localhost:3003/api/message/${room}`
+      `${process.env.REACT_APP_SERVER_URI}/api/message/${room}`
     );
     return response.data;
   };
@@ -62,24 +62,22 @@ function Chat() {
   return (
     <div>
       <TopBar />
-      {!roomParam && <h1 id="selectRoom">Select a room to chat:</h1>}
-      <div className="roomsButtons">
+      {!roomParam && <h1 id='selectRoom'>Select a room to chat:</h1>}
+      <div className='roomsButtons'>
         <>
           {rooms.map((room) => (
             <Link
-              className="rooms"
+              className='rooms'
               to={`/chat/${room}`}
               onClick={() => {
                 leaveRoom();
                 fetchMessages(room).then((messages) => {
                   setChat(messages);
                 });
-              }}
-            >
+              }}>
               <Button
                 style={{ fontSize: '17px' }}
-                variant={room === roomParam ? 'contained' : 'outlined'}
-              >
+                variant={room === roomParam ? 'contained' : 'outlined'}>
                 {room}
               </Button>
             </Link>

@@ -21,7 +21,9 @@ function Feed() {
   }, []);
 
   const fetchPosts = async () => {
-    const { data } = await axios.get(`/api/post`);
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_SERVER_URI}/api/post`
+    );
     setPosts(data.reverse()); // reverse to show latest post first
   };
 
@@ -33,7 +35,7 @@ function Feed() {
     try {
       setLoading(true);
       const post = await axios.post(
-        `/api/post`,
+        `${process.env.REACT_APP_SERVER_URI}/api/post`,
         {
           title,
           content,
@@ -45,7 +47,9 @@ function Feed() {
           },
         }
       );
-      const { data } = await axios.get(`""/api/post/${post.data._id}`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_SERVER_URI}/api/post/${post.data._id}`
+      );
       if (data && user) {
         setUser({ ...user, posts: [data._id, ...user.posts] } as UserType);
         setLoading(false);
@@ -65,7 +69,7 @@ function Feed() {
   const shareAComment = async (commentOn: string, content: string) => {
     try {
       const comment = await axios.post(
-        `""/api/comment`,
+        `${process.env.REACT_APP_SERVER_URI}/api/comment`,
         {
           content,
           commentOn,
@@ -93,11 +97,14 @@ function Feed() {
 
   const handleDelete = async (postId: string) => {
     try {
-      await axios.delete(`""/api/post/${postId}`, {
-        headers: {
-          authorization: getToken()!,
-        },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_URI}/api/post/${postId}`,
+        {
+          headers: {
+            authorization: getToken()!,
+          },
+        }
+      );
       setPosts((prevPost) => prevPost.filter((post) => post._id !== postId));
       toast('Post deleted successfully', {
         type: 'success',
@@ -116,7 +123,7 @@ function Feed() {
   ) => {
     try {
       await axios.put(
-        `""/api/post/like`,
+        `${process.env.REACT_APP_SERVER_URI}/api/post/like`,
         { postId, likes, type },
         {
           headers: {

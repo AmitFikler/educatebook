@@ -36,7 +36,7 @@ function SignUpPage() {
   const handleSignUp = async () => {
     try {
       setIsLoading(true);
-      await axios.post(`/api/user`, {
+      await axios.post(`${process.env.REACT_APP_SERVER_URI}/api/user`, {
         fullName,
         email,
         password,

@@ -21,10 +21,13 @@ function LoginPage() {
   /********* Sign-In *********/
   const handleSignIn = async () => {
     try {
-      const { data } = await axios.post(`/api/login`, {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_SERVER_URI}/api/login`,
+        {
+          email,
+          password,
+        }
+      );
       // setUser(data.user);
       setToken(data.token);
       setUser(data.user);
