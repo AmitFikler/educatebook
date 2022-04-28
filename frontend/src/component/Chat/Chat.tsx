@@ -30,7 +30,7 @@ function Chat() {
     fetchMessages(roomParam!).then((messages) => {
       setChat(messages);
     });
-    socketRef.current = io('http://localhost:3003');
+    socketRef.current = io(`${process.env.REACT_APP_SERVER_URI}/`);
     if (socketRef.current) {
       socketRef.current.on('replayMessage', (message) => {
         setChat((chat) => [...chat, message]); // add new message to chat
