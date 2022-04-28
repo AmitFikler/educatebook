@@ -1,12 +1,8 @@
 import { Avatar, Paper } from '@mui/material';
-import { useContext } from 'react';
 import { CommentType } from '../../../@types/@types';
-import { UserContext } from '../../contexts/User/UserContext';
-import DeleteIcon from '@mui/icons-material/Delete';
 import moment from 'moment';
 
 function Comment({ comment }: { comment: CommentType }) {
-  const { user } = useContext(UserContext)!;
   return (
     <div className='comment'>
       <div className='commentWrapper'>

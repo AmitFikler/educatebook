@@ -16,9 +16,10 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import '../../styles/signUpPage.css';
 import { useState } from 'react';
 import { ReactComponent as Spinner } from '../../images/spinner.svg';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import { ErrorType } from '../../../@types/@types';
 
 function SignUpPage() {
   /********* STATES *********/
@@ -48,7 +49,7 @@ function SignUpPage() {
       toast('Sign up successfully', {
         type: 'success',
       });
-    } catch (error) {
+    } catch (error: any) {
       toast(error.response.data.error, {
         type: 'error',
       });
