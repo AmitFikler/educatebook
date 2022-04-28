@@ -14,25 +14,25 @@ function ShareComment({
       style={{
         marginRight: '20%',
         display: 'flex',
-      }}
-    >
+      }}>
       <TextField
-        id="filled-multiline-static"
-        label="Share a comment.."
+        id='filled-multiline-static'
+        label='Share a comment..'
         multiline
         rows={2}
+        value={content}
         onChange={(e) => setContent(e.target.value)}
-        variant="filled"
+        variant='filled'
         style={{ width: '90%' }}
       />
       <Button
         onClick={() => {
           content && shareAComment(postId, content);
+          setContent('');
         }}
         style={{ width: '10%' }}
-        variant="contained"
-        endIcon={<SendIcon />}
-      >
+        variant='contained'
+        endIcon={<SendIcon />}>
         Send
       </Button>
     </Paper>

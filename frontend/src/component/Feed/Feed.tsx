@@ -58,7 +58,7 @@ function Feed() {
           type: 'success',
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       setLoading(false);
       toast(error.response.data.error, {
         type: 'error',
@@ -88,7 +88,7 @@ function Feed() {
           return post;
         });
       });
-    } catch (error) {
+    } catch (error: any) {
       toast(error.response.data.error, {
         type: 'error',
       });
@@ -109,7 +109,7 @@ function Feed() {
       toast('Post deleted successfully', {
         type: 'success',
       });
-    } catch (error) {
+    } catch (error: any) {
       toast(error.response.data.error, {
         type: 'error',
       });
@@ -157,7 +157,7 @@ function Feed() {
           });
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       toast(error.response.data.error, {
         type: 'error',
       });
