@@ -35,7 +35,7 @@ function LoginPage() {
         type: 'success',
       });
       navigate('/');
-    } catch (error) {
+    } catch (error: any) {
       toast(error.response.data.error, {
         type: 'error',
       });
