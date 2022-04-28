@@ -36,7 +36,7 @@ function SignUpPage() {
   const handleSignUp = async () => {
     try {
       setIsLoading(true);
-      await axios.post(`${process.env.REACT_APP_SERVER_URI}/api/user`, {
+      await axios.post(`/api/user`, {
         fullName,
         email,
         password,
@@ -74,86 +74,85 @@ function SignUpPage() {
   return (
     <>
       <Grid>
-        <Paper className="signUpPaper" elevation={10}>
-          <Grid className="signUpHeader">
+        <Paper className='signUpPaper' elevation={10}>
+          <Grid className='signUpHeader'>
             <Avatar style={{ backgroundColor: '#368bff' }}>
               <AddCircleIcon />
             </Avatar>
             <h2>Sign up</h2>
           </Grid>
-          <Typography variant="caption">
+          <Typography variant='caption'>
             Please fill this form to create an account
           </Typography>
           <TextField
-            label="Full Name"
-            variant="standard"
-            type="text"
-            placeholder="Enter your full name"
+            label='Full Name'
+            variant='standard'
+            type='text'
+            placeholder='Enter your full name'
             onChange={(e) => setFullName(e.target.value)}
             fullWidth
             style={{ margin: '8px 0' }}
             required
           />
           <TextField
-            label="Email"
-            variant="standard"
-            type="email"
-            placeholder="Enter email"
+            label='Email'
+            variant='standard'
+            type='email'
+            placeholder='Enter email'
             onChange={(e) => setEmail(e.target.value)}
             fullWidth
             style={{ margin: '8px 0' }}
             required
           />
           <FormControl
-            component="fieldset"
+            component='fieldset'
             style={{ marginTop: '5px' }}
             onChange={(e: any) => setRole(e.target.value)} //TODO -type any
           >
-            <FormLabel component="legend" required>
+            <FormLabel component='legend' required>
               Role
             </FormLabel>
             <RadioGroup
-              aria-label="role"
-              name="role"
-              style={{ display: 'initial' }}
-            >
+              aria-label='role'
+              name='role'
+              style={{ display: 'initial' }}>
               <FormControlLabel
-                value="student"
+                value='student'
                 control={<Radio />}
-                label="Student"
+                label='Student'
               />
               <FormControlLabel
-                value="tutor"
+                value='tutor'
                 control={<Radio />}
-                label="Tutor"
+                label='Tutor'
               />
             </RadioGroup>
           </FormControl>
           <TextField
-            label="Password"
+            label='Password'
             style={{ margin: '8px 0' }}
-            variant="standard"
-            placeholder="Enter password"
+            variant='standard'
+            placeholder='Enter password'
             fullWidth
             onChange={(e) => setPassword(e.target.value)}
-            type="password"
+            type='password'
             required
           />
-          <div className="upload-img">
-            <Button variant="contained" component="label">
+          <div className='upload-img'>
+            <Button variant='contained' component='label'>
               <AddPhotoAlternateIcon /> Upload Profile Picture
               <input
-                type="file"
+                type='file'
                 hidden
-                name="img"
-                accept="image/*"
+                name='img'
+                accept='image/*'
                 onChange={imageHandler}
               />
             </Button>
             {picture && (
               <img
                 src={`${picture}`}
-                alt="profile"
+                alt='profile'
                 style={{
                   width: '100px',
                   height: '100px',
@@ -164,18 +163,17 @@ function SignUpPage() {
             )}
           </div>
           <Button
-            type="submit"
-            color="primary"
+            type='submit'
+            color='primary'
             fullWidth
-            variant="contained"
+            variant='contained'
             style={{ margin: '8px 0' }}
-            onClick={() => handleSignUp()}
-          >
+            onClick={() => handleSignUp()}>
             Sign Up
           </Button>
           <div>
             Already have an account?{'  '}
-            <Link to="/login">Sign In</Link>
+            <Link to='/login'>Sign In</Link>
           </div>
           {isLoading && <Spinner />}
         </Paper>

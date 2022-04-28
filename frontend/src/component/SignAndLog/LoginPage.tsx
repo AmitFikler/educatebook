@@ -21,13 +21,10 @@ function LoginPage() {
   /********* Sign-In *********/
   const handleSignIn = async () => {
     try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_SERVER_URI}/api/login`,
-        {
-          email,
-          password,
-        }
-      );
+      const { data } = await axios.post(`/api/login`, {
+        email,
+        password,
+      });
       // setUser(data.user);
       setToken(data.token);
       setUser(data.user);
@@ -43,45 +40,44 @@ function LoginPage() {
   };
   return (
     <Grid>
-      <Paper className="loginPaper" elevation={10}>
-        <Grid className="loginHeader">
+      <Paper className='loginPaper' elevation={10}>
+        <Grid className='loginHeader'>
           <Avatar style={{ backgroundColor: '#368bff' }}>
             <LockOutlinedIcon />
           </Avatar>
           <h2>Sign in</h2>
         </Grid>
         <TextField
-          label="Email"
-          variant="standard"
-          placeholder="Enter email"
+          label='Email'
+          variant='standard'
+          placeholder='Enter email'
           fullWidth
           style={{ margin: '8px 0' }}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <TextField
-          label="Password"
+          label='Password'
           style={{ margin: '8px 0' }}
-          variant="standard"
-          placeholder="Enter password"
+          variant='standard'
+          placeholder='Enter password'
           fullWidth
-          type="password"
+          type='password'
           onChange={(e) => setPassword(e.target.value)}
           required
         />
         <Button
-          type="submit"
-          color="primary"
+          type='submit'
+          color='primary'
           fullWidth
-          variant="contained"
+          variant='contained'
           style={{ margin: '8px 0' }}
-          onClick={() => handleSignIn()}
-        >
+          onClick={() => handleSignIn()}>
           Sign in
         </Button>
         <div>
           Don't have an account yet?{'  '}
-          <Link to="/signup">Sign Up</Link>
+          <Link to='/signup'>Sign Up</Link>
         </div>
       </Paper>
     </Grid>
