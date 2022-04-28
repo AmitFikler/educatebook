@@ -102,3 +102,9 @@
   font-size: small;
   text-align: right;
 }
+
+@media only screen and (max-width: 600px) {
+  .msg {
+    width: 70% !important;
+  }
+}
